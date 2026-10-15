@@ -2,6 +2,9 @@
   "name": "jojo",
   "version": "0.1.0",
   "description": "Jojo, um cachorro em pixel art num painel lateral: feliz quando o Claude termina, latindo quando precisa de você, esperando enquanto trabalha.",
-  "author": { "name": "Daniel Souza" },
-  "types": "./types/index.d.ts"
+  "author": {
+    "name": "Daniel Souza"
+  },
+  "types": "./types/index.d.ts",
+  "license": "MIT"
 }

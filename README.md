@@ -68,7 +68,10 @@ Nenhuma para usar. Para regenerar os quadros a partir da folha de sprites: Pytho
 
 - Onde uma organização gerencia o Claude Code, `classic.PermissionRequest` e `classic.Notification` não rodam em plugins instalados pela pessoa: lá o Jojo só late nas perguntas e nos planos.
 - Instalado depois da Flightdeck, o Jojo abre numa aba própria ao lado dela, e não embaixo. A Flightdeck desenha o próprio painel sem passar a vez; a causa provável (ainda não confirmada) é a ordem em `enabledPlugins` no `~/.claude/settings.json`, em que o plugin que vem antes fica por fora. Pôr o Jojo antes da Flightdeck deve resolver.
-- A folha de sprites (`assets/jojo-sprites.jpeg`) foi gerada por IA; a licença dela está em revisão antes de o repositório ficar público.
+
+## Licença
+
+[MIT](LICENSE), para o código e para a folha de sprites (`assets/jojo-sprites.jpeg`). A folha de sprites foi gerada por IA (Gemini) e é publicada sem garantia de direitos de terceiros.
 
 ## Como remover
 
