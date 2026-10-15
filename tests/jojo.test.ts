@@ -1,6 +1,7 @@
 import { expect, test } from 'claude-code/testing'
 import type { Engine } from 'claude-code/testing'
-import { FRAMES } from '../hooks/frames'
+import { FRAME_SETS } from '../hooks/frames'
+const FRAMES = FRAME_SETS[24]!.frames
 
 /** O painel montado uma vez por teste: ele se redesenha quando o humor muda. */
 const panes = new WeakMap<Engine, Awaited<ReturnType<Engine['ui']['mount']>>>()
@@ -18,7 +19,7 @@ const shown = async ($: Engine): Promise<string> => {
     })
     panes.set($, drawn)
   }
-  for (const label of ['HAPPY', 'BARKING', 'WAITING']) {
+  for (const label of ['HAPPY', 'BARKING', 'WAITING', 'SLEEPING']) {
     if (await drawn.find({ type: 'Text', text: label })) return label
   }
   return ''
@@ -58,10 +59,10 @@ test('late quando o Claude pede permissão', async ($, on) => {
   expect(await shown($)).toBe('BARKING')
 })
 
-test('em repouso (idle_prompt) não late', async ($, on) => {
+test('em repouso (idle_prompt) cochila', async ($, on) => {
   on('classic.Notification', async () => ({}))
   await $.classic.Notification({ message: 'esperando', notification_type: 'idle_prompt' })
-  expect(await shown($)).toBe('WAITING')
+  expect(await shown($)).toBe('SLEEPING')
 })
 
 test('late durante uma pergunta à pessoa e volta a esperar depois', async ($, on) => {
@@ -97,4 +98,26 @@ test('o desenho usa um quadro do humor mostrado no rótulo, não do WAITING', as
   const raster = await drawn?.find({ type: 'Raster', key: 'jojo' })
   expect(FRAMES.happy).toContain(raster?.props.cells as string)
   expect(FRAMES.waiting).not.toContain(raster?.props.cells as string)
+})
+
+
+test('erro de API, incluindo falta de créditos, termina em cochilo e não HAPPY', async ($, on) => {
+  on('turn.complete', async () => ({ text: '' }))
+  await $.turn.complete({ ...done(), reason: 'error', answer: '' })
+  expect(await shown($)).toBe('SLEEPING')
+  await $.turn.complete(done('sub-1'))
+  expect(await shown($)).toBe('SLEEPING')
+})
+
+test('um turno novo acorda o Jojo e permissão tem prioridade sobre cochilo', async ($, on) => {
+  on('turn.start', async (_$, e) => ({ turnId: e.turnId }))
+  on('classic.Notification', async () => ({}))
+  on('ui.open', async () => ({ value: { isPlaced: true } }))
+  await $.command.run({ command: 'jojo', args: 'sleeping' })
+  await $.turn.start({ text: '', turnId: 'wake' })
+  expect(await shown($)).toBe('WAITING')
+  await $.classic.Notification({ message: 'inativo', notification_type: 'idle_prompt' })
+  expect(await shown($)).toBe('WAITING')
+  await $.classic.Notification({ message: 'permissão', notification_type: 'permission_prompt' })
+  expect(await shown($)).toBe('BARKING')
 })

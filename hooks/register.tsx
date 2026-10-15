@@ -2,8 +2,11 @@ import { atom, read, update } from 'claude-code'
 import type { Hook, Register, RenderInput, StateDollar } from 'claude-code'
 
 import type { Mood } from '../types'
-import { COLUMNS, FRAMES, ROWS } from './frames'
-import { FRAME_MS, HAPPY_MS, LABEL, afterTurn, asksUser, needsUser } from './mood'
+import { COLUMNS, FRAMES } from './frames'
+import type { FrameSet } from './frames'
+import { frameSetForWidth } from './layout'
+import { advanceAnimation } from './animation'
+import { HAPPY_MS, IDLE_MS, LABEL, afterTurn, asksUser, isMood, needsUser } from './mood'
 
 const PANE = 'jojo'
 const RASTER = 'jojo'
@@ -15,8 +18,11 @@ const HOST = 'flightdeck'
  * a folga evita que o Jojo passe do fundo quando aparece um aviso a mais.
  */
 const BELOW_PANE = 11
-/** Passo do relógio da animação; cada humor anda no seu ritmo (FRAME_MS). */
-const TICK_MS = 40
+/** Consulta do relógio a cada 16 ms; a pose só muda quando sua duração termina. */
+const TICK_MS = 16
+
+// O blit precisa usar exatamente o tamanho montado em cada painel.
+const rasters = new Map<string, FrameSet>()
 
 const mood = atom({ plugin: 'jojo', key: 'mood' } as const, 'waiting' as Mood)
 
@@ -25,6 +31,8 @@ let shown: Mood = 'waiting'
 let frame = 0
 let sinceFrame = 0
 let sinceMood = 0
+// Um turno longo não é inatividade: só cochila entre turnos.
+let working = false
 // O Jojo está sendo desenhado embaixo da Flightdeck (o hook dela passou a vez ao nosso).
 let hosted = false
 let ownClosed = false
@@ -55,17 +63,24 @@ async function drawJojo($: Parameters<Hook<'ui.render'>>[0], e: RenderInput<'Pan
   const { Box, Text } = $.ui.resolve(e)
   const label = <Text bold color={now === 'barking' ? 'warning' : now === 'happy' ? 'success' : 'inactive'}>{LABEL[now]}</Text>
   if (e.surface !== 'terminal') {
+    rasters.delete(e.requestId)
     return <Box flexDirection="column" alignItems="center">{label}</Box>
   }
+  const fitted = frameSetForWidth(e.props.bodyColumns)
+  if (!fitted) {
+    rasters.delete(e.requestId)
+    return <Box overflow="hidden">{label}</Box>
+  }
+  rasters.set(e.requestId, fitted)
   const { Raster } = $.ui.resolve(e)
-  const cells = FRAMES[now][frame]
+  const cells = fitted.frames[now][frame] ?? fitted.frames[now][0] ?? ''
 
   return (
     // Centralizado só na horizontal: o Jojo e o rótulo no meio da largura do painel.
     // O rótulo em cima: faltando altura, some o pescoço do Jojo, não o nome do humor.
-    <Box flexDirection="column" alignItems="center">
+    <Box width="100%" overflow="hidden" flexDirection="column" alignItems="center">
       {label}
-      <Raster key={RASTER} columns={COLUMNS} rows={ROWS} cells={cells} />
+      <Raster key={RASTER} columns={fitted.columns} rows={fitted.rows} cells={cells} />
     </Box>
   )
 }
@@ -77,29 +92,52 @@ export const register: Register = on => {
     // Depois de uma recarga, o relógio retoma o humor que estava guardado.
     follow(await read($, mood))
     // A animação: troca as células do Raster sem redesenhar o painel.
-    $.clock.every(TICK_MS, () => {
-      sinceFrame += TICK_MS
-      sinceMood += TICK_MS
-      if (hosted && !ownClosed) {
-        // Já mora embaixo da Flightdeck: o painel próprio sobraria como aba vazia.
-        ownClosed = true
-        $.ui.close({ id: PANE }).catch(() => {})
+    let previousTick = await $.clock.now()
+    let ticking = false
+    $.clock.every(TICK_MS, async () => {
+      if (ticking) return
+      ticking = true
+      try {
+        const now = await $.clock.now()
+        const elapsed = Math.max(0, now - previousTick)
+        previousTick = now
+        sinceMood += elapsed
+        if (hosted && !ownClosed) {
+          // Já mora embaixo da Flightdeck: o painel próprio sobraria como aba vazia.
+          ownClosed = true
+          rasters.delete(PANE)
+          $.ui.close({ id: PANE }).catch(() => {})
+        }
+        if (shown === 'happy' && sinceMood >= HAPPY_MS) {
+          await setMood($, 'waiting')
+          return
+        }
+        if (!working && shown === 'waiting' && sinceMood >= IDLE_MS) {
+          await setMood($, 'sleeping')
+          return
+        }
+        const advanced = advanceAnimation(shown, frame, sinceFrame, elapsed, FRAMES[shown].length)
+        sinceFrame = advanced.remainder
+        if (frame === advanced.frame) return
+        frame = advanced.frame
+        for (const [requestId, fitted] of rasters) {
+          if (hosted && requestId === PANE) continue
+          const cells = fitted.frames[shown][frame]
+          if (cells === undefined) continue
+          await $.ui.blit({ requestId, key: RASTER, cells, columns: fitted.columns, rows: fitted.rows }).catch(() => {})
+        }
+      } finally {
+        ticking = false
       }
-      if (shown === 'happy' && sinceMood >= HAPPY_MS) {
-        void setMood($, 'waiting')
-        return
-      }
-      if (sinceFrame < FRAME_MS[shown]) return
-      sinceFrame = 0
-      frame = (frame + 1) % FRAMES[shown].length
-      const cells = FRAMES[shown][frame]
-      $.ui.blit({ requestId: hosted ? HOST : PANE, key: RASTER, cells }).catch(() => {})
     })
 
     return next(e)
   })
 
-  on('command.run', { command: 'jojo' }, async $ => {
+  on('command.run', { command: 'jojo' }, async ($, e) => {
+    const preview = e.args.trim().toLowerCase()
+    if (preview && !isMood(preview)) return { text: 'Uso: /jojo [happy|barking|waiting|sleeping]' }
+    if (isMood(preview)) await setMood($, preview)
     if (hosted) return { text: 'O Jojo está embaixo do painel Flightdeck.' }
     // Pedido pela pessoa: traz a aba do Jojo para a frente (Esc devolve o teclado).
     await $.ui.open({ id: PANE, title: 'jojo', focus: true, columns: COLUMNS + 4 })
@@ -109,7 +147,11 @@ export const register: Register = on => {
 
   // Trabalhando: um turno começou ou a pessoa respondeu.
   on('turn.start', async ($, e, next) => {
-    await setMood($, 'waiting')
+    if (e.agentId === undefined) {
+      working = true
+      sinceMood = 0
+      await setMood($, 'waiting')
+    }
 
     return next(e)
   })
@@ -132,12 +174,17 @@ export const register: Register = on => {
 
   on('classic.Notification', async ($, e, next) => {
     if (needsUser(e.notification_type)) await setMood($, 'barking')
+    else if (e.notification_type === 'idle_prompt' && !working && shown === 'waiting') await setMood($, 'sleeping')
 
     return next(e)
   })
 
   on('turn.complete', async ($, e, next) => {
-    const after = afterTurn(e.agentId, e.isAborted)
+    if (e.agentId === undefined) {
+      working = false
+      sinceMood = 0
+    }
+    const after = afterTurn(e.agentId, e.isAborted, e.reason)
     if (after !== undefined) await setMood($, after)
 
     return next(e)
