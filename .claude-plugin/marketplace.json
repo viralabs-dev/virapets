@@ -1,14 +1,12 @@
 {
-  "name": "viralabs-claude-mod",
-  "metadata": {
-    "description": "Mods experimentais do Claude Code da viralabs."
+  "name": "viralabs-jojo",
+  "owner": {
+    "name": "viralabs"
   },
-  "owner": { "name": "Daniel Souza" },
   "plugins": [
     {
       "name": "jojo",
-      "source": "./jojo",
-      "description": "Jojo, um cachorro em pixel art: feliz quando o Claude termina, latindo quando precisa de você, esperando enquanto trabalha."
+      "source": "./"
     }
   ]
 }

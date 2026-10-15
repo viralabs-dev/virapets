@@ -1,6 +1,6 @@
 import { expect, test } from 'claude-code/testing'
 import type { Engine } from 'claude-code/testing'
-import { FRAMES } from './frames'
+import { FRAMES } from '../hooks/frames'
 
 /** O painel montado uma vez por teste: ele se redesenha quando o humor muda. */
 const panes = new WeakMap<Engine, Awaited<ReturnType<Engine['ui']['mount']>>>()

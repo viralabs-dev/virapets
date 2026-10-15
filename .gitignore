@@ -1,3 +1,7 @@
+# Tipos que o Claude Code escreve ao carregar um mod de uma pasta
 .claude-plugin/types/
-*/.claude-plugin/types/
+**/.claude-plugin/types/
 __pycache__/
+
+# Estado local do Claude Code
+.claude/
