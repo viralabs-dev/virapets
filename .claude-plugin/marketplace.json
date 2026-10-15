@@ -1,12 +1,13 @@
 {
-  "name": "viralabs-jojo",
+  "name": "viralabs-virapets",
   "owner": {
     "name": "viralabs"
   },
   "plugins": [
     {
-      "name": "jojo",
+      "name": "virapets",
       "source": "./"
     }
-  ]
+  ],
+  "description": "ViraPets: pets animados no painel do Claude Code"
 }

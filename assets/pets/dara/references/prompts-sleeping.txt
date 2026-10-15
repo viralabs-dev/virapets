@@ -1,0 +1,12 @@
+Use case: precise-object-edit. EDIT ONLY THE SUNGLASSES POSITION and eyes revealed beneath, on this EXACT existing Dara SLEEPING 8frame sprite sheet. Preserve all other pixels as closely as possible: same sprite size, head tilt pose eachcell, same whitecreamfur/brownpatches, bandana, pixel-artshadows/contour, framealignment and spacing. Ears remain viewerLEFTupright viewerRIGHTfloppyDOWN allframes. No cone, text,ZzZ,symbols orbackground; genuine transparentalpha.
+Crucial animation change: glasses slide DOWN onto nose while asleep, then SNAP BACK UP to eyes upon startled wake. Use EXACTLY one pair of unchanged BLACK AVIATOR glasses per sprite, same frame and lensshape/size, no duplicateglasses or eyes drawnonthelenses. Reveal NATURAL closed eyelids ABOVE loweredglasses during sleep.
+8frames rowmajor4columns2rows:
+TOPLEFT frame1: originalnormal glasses coveringeyes, headalmostupright,mouthclosedasleep.
+TOP2frame2: headslighttilt glasses slide down15%of lensheight, glimpseclosedeyelidsabove.
+TOP3frame3: headtiltsmore, glasses DOWN by60%lensheight sittingmiddleofmuzzle/uppernose, BOTHclosedeyelids fullyvisibleABOVEglasses.
+TOPRIGHTframe4: headdownasleep glasses DOWN by100%lensheight perchedontipofnose; BOTHclosedeyelids fullyvisibleabove, glassesclearlylowered.
+BOTTOMLEFTframe5: STARTLEDWAKE headupright, mouthsmallO, glasses SNAP BACK toNORMAL coveringeyes.
+BOTTOM2frame6: awakeupright normalglassescovereyes closedmouth.
+BOTTOM3frame7: noddingbackasleep glassesdescendslightly15%lensheight showingeyelids.
+BOTTOMRIGHTframe8: normalglassesposition,restingmouthclosed, matchesframe1forloop.
+Keepglassesrigidandmatchingidentity,dontdeformscale. Keephead/bandana/ears at exactoriginalsize,baselineandposition eachcell. Output1536x1024samegrid.

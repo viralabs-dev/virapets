@@ -1,0 +1,94 @@
+[
+  {
+    "file": "dara-happy.webp",
+    "bytes": 145258,
+    "frames": 8,
+    "duration_ms": 960,
+    "frame_durations_ms": [
+      240,
+      100,
+      90,
+      80,
+      80,
+      100,
+      90,
+      180
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "c479ddf53880184a846a7eaae0514beb6b6055b626044849c41995a0fcad1024"
+  },
+  {
+    "file": "dara-barking.webp",
+    "bytes": 148422,
+    "frames": 8,
+    "duration_ms": 1140,
+    "frame_durations_ms": [
+      360,
+      60,
+      70,
+      160,
+      130,
+      60,
+      60,
+      240
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "fa2e26fca3413556df206c90a1daf5018d9a074148b4ec6a1ae9ab1a52920411"
+  },
+  {
+    "file": "dara-waiting.webp",
+    "bytes": 142934,
+    "frames": 8,
+    "duration_ms": 2400,
+    "frame_durations_ms": [
+      1440,
+      120,
+      80,
+      80,
+      80,
+      80,
+      120,
+      400
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "bfacf915919f6aa0121e85e7c7e73f6b6ae03aff61cccab254452febb90cbea2"
+  },
+  {
+    "file": "dara-sleeping.webp",
+    "bytes": 151146,
+    "frames": 8,
+    "duration_ms": 3740,
+    "frame_durations_ms": [
+      1000,
+      180,
+      240,
+      650,
+      220,
+      400,
+      250,
+      800
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "edb46965af9c35ab909874a19abc04535ec863769210e38a314bb194ebdeb7a3"
+  }
+]

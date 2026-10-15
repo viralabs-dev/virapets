@@ -1,15 +1,15 @@
 import { atom, read, update } from 'claude-code'
 import type { Hook, Register, RenderInput, StateDollar } from 'claude-code'
 
-import type { Mood } from '../types'
-import { COLUMNS, FRAMES } from './frames'
-import type { FrameSet } from './frames'
+import type { Mood, FrameSet, Selection } from '../types'
+import { PETS, DEFAULT_PET, normalizeSelection, parseCommand } from './pets'
+import type { PetId } from './pets'
 import { frameSetForWidth } from './layout'
 import { advanceAnimation } from './animation'
-import { HAPPY_MS, IDLE_MS, LABEL, afterTurn, asksUser, isMood, needsUser } from './mood'
+import { HAPPY_MS, IDLE_MS, LABEL, afterTurn, asksUser, needsUser } from './mood'
 
-const PANE = 'jojo'
-const RASTER = 'jojo'
+const PANE = 'virapets'
+const RASTER = 'virapets'
 /** O painel do plugin Flightdeck: havendo ele, o Jojo mora embaixo do que ele desenha. */
 const HOST = 'flightdeck'
 /**
@@ -24,7 +24,8 @@ const TICK_MS = 16
 // O blit precisa usar exatamente o tamanho montado em cada painel.
 const rasters = new Map<string, FrameSet>()
 
-const mood = atom({ plugin: 'jojo', key: 'mood' } as const, 'waiting' as Mood)
+const selection = atom({ plugin: 'virapets', key: 'selection' } as const, { pet: DEFAULT_PET, mood: 'waiting' } as Selection)
+let activePet: PetId = DEFAULT_PET
 
 // O que o relógio lê a cada passo: o humor desenhado, o quadro e há quanto tempo.
 let shown: Mood = 'waiting'
@@ -42,8 +43,10 @@ let ownClosed = false
  * uma recarga do módulo; as variáveis do relógio não. Sem isto, depois de uma recarga o
  * relógio voltava a desenhar os quadros do WAITING por cima de um HAPPY ou BARKING.
  */
-function follow(next: Mood): void {
-  if (next === shown) return
+function follow(next: Mood, pet: PetId = activePet): void {
+  if (next === shown && pet === activePet) return
+  if (pet !== activePet) rasters.clear()
+  activePet = pet
   shown = next
   frame = 0
   sinceFrame = 0
@@ -53,20 +56,22 @@ function follow(next: Mood): void {
 const setMood = async ($: StateDollar, next: Mood): Promise<void> => {
   follow(next)
   // O Jojo é só enfeite: uma falha ao gravar o humor nunca barra o Claude.
-  await update($, mood, () => next).catch(() => undefined)
+  await update($, selection, () => ({ pet: activePet, mood: next })).catch(() => undefined)
 }
 
-/** O desenho do Jojo, no painel próprio ou embaixo da Flightdeck. */
-async function drawJojo($: Parameters<Hook<'ui.render'>>[0], e: RenderInput<'Pane'>) {
-  const now = await read($, mood)
-  follow(now)
+/** O desenho do pet, no painel próprio ou embaixo da Flightdeck. */
+async function drawPet($: Parameters<Hook<'ui.render'>>[0], e: RenderInput<'Pane'>) {
+  const current = normalizeSelection(await read($, selection))
+  const now = current.mood
+  follow(now, current.pet)
+  const pet = PETS[current.pet]
   const { Box, Text } = $.ui.resolve(e)
   const label = <Text bold color={now === 'barking' ? 'warning' : now === 'happy' ? 'success' : 'inactive'}>{LABEL[now]}</Text>
   if (e.surface !== 'terminal') {
     rasters.delete(e.requestId)
     return <Box flexDirection="column" alignItems="center">{label}</Box>
   }
-  const fitted = frameSetForWidth(e.props.bodyColumns)
+  const fitted = frameSetForWidth(e.props.bodyColumns, pet.FRAME_SETS)
   if (!fitted) {
     rasters.delete(e.requestId)
     return <Box overflow="hidden">{label}</Box>
@@ -79,18 +84,35 @@ async function drawJojo($: Parameters<Hook<'ui.render'>>[0], e: RenderInput<'Pan
     // Centralizado só na horizontal: o Jojo e o rótulo no meio da largura do painel.
     // O rótulo em cima: faltando altura, some o pescoço do Jojo, não o nome do humor.
     <Box width="100%" overflow="hidden" flexDirection="column" alignItems="center">
-      {label}
+      <Box flexDirection="row"><Text>{pet.name} · </Text>{label}</Box>
       <Raster key={RASTER} columns={fitted.columns} rows={fitted.rows} cells={cells} />
     </Box>
   )
 }
 
+const command = async ($: Parameters<Hook<'command.run'>>[0], args: string) => {
+  const result = parseCommand(args, await read($, selection))
+  if ('text' in result) return { text: result.text }
+  const current = normalizeSelection(result.selection)
+  follow(current.mood, current.pet)
+  frame = 0
+  sinceFrame = 0
+  sinceMood = 0
+  await update($, selection, () => current).catch(() => undefined)
+  const name = PETS[current.pet].name
+  if (hosted) return { text: `${name} está embaixo do painel Flightdeck.` }
+  await $.ui.open({ id: PANE, title: 'ViraPets', focus: true, columns: PETS[current.pet].COLUMNS + 4 })
+  return { text: `Painel de ${name} aberto.` }
+}
+
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({ name: 'jojo', description: 'Abre o painel do Jojo' })
-    void $.ui.open({ id: PANE, title: 'jojo', columns: COLUMNS + 4 })
+    await $.command.register({ name: 'virapets', description: 'Escolhe um pet e abre o painel ViraPets' })
+    await $.command.register({ name: 'jojo', description: 'Compatibilidade: /virapets jojo [humor]' })
+    void $.ui.open({ id: PANE, title: 'ViraPets', columns: PETS[activePet].COLUMNS + 4 })
     // Depois de uma recarga, o relógio retoma o humor que estava guardado.
-    follow(await read($, mood))
+    const restored = normalizeSelection(await read($, selection))
+    follow(restored.mood, restored.pet)
     // A animação: troca as células do Raster sem redesenhar o painel.
     let previousTick = await $.clock.now()
     let ticking = false
@@ -116,7 +138,7 @@ export const register: Register = on => {
           await setMood($, 'sleeping')
           return
         }
-        const advanced = advanceAnimation(shown, frame, sinceFrame, elapsed, FRAMES[shown].length)
+        const advanced = advanceAnimation(shown, frame, sinceFrame, elapsed, PETS[activePet].FRAMES[shown].length, PETS[activePet].DURATIONS)
         sinceFrame = advanced.remainder
         if (frame === advanced.frame) return
         frame = advanced.frame
@@ -134,16 +156,8 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('command.run', { command: 'jojo' }, async ($, e) => {
-    const preview = e.args.trim().toLowerCase()
-    if (preview && !isMood(preview)) return { text: 'Uso: /jojo [happy|barking|waiting|sleeping]' }
-    if (isMood(preview)) await setMood($, preview)
-    if (hosted) return { text: 'O Jojo está embaixo do painel Flightdeck.' }
-    // Pedido pela pessoa: traz a aba do Jojo para a frente (Esc devolve o teclado).
-    await $.ui.open({ id: PANE, title: 'jojo', focus: true, columns: COLUMNS + 4 })
-
-    return { text: 'Painel do Jojo aberto.' }
-  })
+  on('command.run', { command: 'virapets' }, async ($, e) => command($, e.args))
+  on('command.run', { command: 'jojo' }, async ($, e) => command($, `jojo ${e.args}`))
 
   // Trabalhando: um turno começou ou a pessoa respondeu.
   on('turn.start', async ($, e, next) => {
@@ -190,7 +204,7 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => drawJojo($, e))
+  on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => drawPet($, e))
 
   // Embaixo da Flightdeck: o que ela desenhou, e o Jojo logo abaixo.
   on('ui.render', { component: 'Pane', requestId: HOST }, async ($, e, next) => {
@@ -213,7 +227,7 @@ export const register: Register = on => {
         {/* Faltando altura (a Flightdeck cresce enquanto o Claude trabalha), quem encolhe
             e esconde o resto é a parte de cima: o Jojo fica inteiro, no fundo. */}
         <Box flexDirection="column" flexShrink={1} overflow="hidden">{host}</Box>
-        <Box marginTop={1} flexDirection="column" flexShrink={0}>{await drawJojo($, e)}</Box>
+        <Box marginTop={1} flexDirection="column" flexShrink={0}>{await drawPet($, e)}</Box>
       </Box>
     )
   })

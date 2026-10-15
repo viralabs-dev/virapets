@@ -1,0 +1,94 @@
+[
+  {
+    "file": "mel-happy.webp",
+    "bytes": 170856,
+    "frames": 8,
+    "duration_ms": 960,
+    "frame_durations_ms": [
+      240,
+      100,
+      90,
+      80,
+      80,
+      100,
+      90,
+      180
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "98c3876a803464b981494f1e5a068465d03c9e85136d034ff43d7cf4046cf6ff"
+  },
+  {
+    "file": "mel-barking.webp",
+    "bytes": 166766,
+    "frames": 8,
+    "duration_ms": 1140,
+    "frame_durations_ms": [
+      360,
+      60,
+      70,
+      160,
+      130,
+      60,
+      60,
+      240
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "ba036234b403aa64662f99ee7fb58019f2d3cc693ec7657f7b4edefafcb4750f"
+  },
+  {
+    "file": "mel-waiting.webp",
+    "bytes": 172862,
+    "frames": 8,
+    "duration_ms": 2400,
+    "frame_durations_ms": [
+      1440,
+      120,
+      80,
+      80,
+      80,
+      80,
+      120,
+      400
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "d0e7be65c8cb6f000725f614e26014e909a4cb15c9d6096d6311df80dc4e8c13"
+  },
+  {
+    "file": "mel-sleeping.webp",
+    "bytes": 175726,
+    "frames": 8,
+    "duration_ms": 3740,
+    "frame_durations_ms": [
+      1000,
+      180,
+      240,
+      650,
+      220,
+      400,
+      250,
+      800
+    ],
+    "size": [
+      512,
+      512
+    ],
+    "lossless": true,
+    "decoded_pixels_verified": true,
+    "source_sha256": "a7efc62a10fcacdc824b17cf9bdb794844681ab956c52f7e8fd6e1a4b00e3eea"
+  }
+]

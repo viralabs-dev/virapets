@@ -1,0 +1,55 @@
+{
+  "origin": [
+    131,
+    2
+  ],
+  "fully_matched_frames": {
+    "mel/happy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mel/barking": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mel/waiting": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mel/sleeping": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "background_mismatches": [],
+  "claude_version": "2.1.301",
+  "sessions": [
+    "virapets-mel-final.cast"
+  ],
+  "frame_module_sha256": "f5d2bbc8b66c880a14199065d939607347124b594279a7b93c0c0f7033c10654",
+  "method": "Complete Raster pixels including transparency, RGB quantized by host to steps of 17."
+}

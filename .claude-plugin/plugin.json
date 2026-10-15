@@ -1,7 +1,7 @@
 {
-  "name": "jojo",
-  "version": "0.2.0",
-  "description": "Jojo, um cachorro em pixel art num painel lateral: feliz quando o Claude termina, latindo quando precisa de você, esperando enquanto trabalha e cochilando quando fica parado.",
+  "name": "virapets",
+  "version": "0.3.0",
+  "description": "Pets animados no Claude Code: Jojo, Mel e Dara acompanham trabalho, perguntas, respostas e repouso.",
   "author": {
     "name": "Daniel Souza"
   },

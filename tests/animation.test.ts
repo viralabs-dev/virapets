@@ -1,5 +1,8 @@
 import { expect, test } from 'claude-code/testing'
-import { advanceAnimation, frameDuration } from '../hooks/animation'
+import { DURATIONS } from '../generated/pets/jojo/frames'
+import { advanceAnimation as advance, frameDuration as duration } from '../hooks/animation'
+const frameDuration = (mood: Parameters<typeof duration>[0], frame: number) => duration(mood, frame, DURATIONS)
+const advanceAnimation = (...args: [Parameters<typeof advance>[0], number, number, number, number]) => advance(...args, DURATIONS)
 
 test('o WAITING mantém repouso, pisca rápido e fecha o ciclo sem salto de tempo', () => {
   expect(advanceAnimation('waiting', 0, 0, 1439, 8).frame).toBe(0)

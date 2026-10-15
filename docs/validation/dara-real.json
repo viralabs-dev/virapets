@@ -1,0 +1,52 @@
+{
+  "claude_version": "2.1.301",
+  "sessions": [
+    "virapets-final.cast",
+    "virapets-dara-final.cast"
+  ],
+  "fully_matched_frames": {
+    "dara/happy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/barking": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/waiting": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/sleeping": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "background_mismatches": [],
+  "frame_module_sha256": "28f9b1266a5bd02684dd92ce37e57eeefd51e6466d5da7ea59daf69bb55e9fa3",
+  "method": "Complete Raster pixels including transparency, RGB quantized by host to steps of 17; combined coverage across two captures."
+}

@@ -1,0 +1,18 @@
+{
+  "happy.png": true,
+  "happy.gif": true,
+  "barking.png": true,
+  "barking.gif": true,
+  "waiting.png": true,
+  "waiting.gif": true,
+  "sleeping.png": true,
+  "sleeping.gif": true,
+  "frames": true,
+  "frames-8": true,
+  "frames-16": true,
+  "frames-24": true,
+  "frames-32": true,
+  "frames-40": true,
+  "sticker_pack_sha256": "7d6c4f247d20af040b7c1fe09c6e712a00b643afc116d5a002fa95197e5f0c83",
+  "sticker_pack_unchanged": true
+}

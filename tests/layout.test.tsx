@@ -1,6 +1,7 @@
 import { expect, mock, test } from 'claude-code/testing'
-import { FRAME_SETS } from '../hooks/frames'
-import { frameSetForWidth } from '../hooks/layout'
+import { FRAME_SETS } from '../generated/pets/jojo/frames'
+import { frameSetForWidth as fit } from '../hooks/layout'
+const frameSetForWidth = (width: number) => fit(width, FRAME_SETS)
 
 test('todos os tamanhos respeitam a largura útil e a margem direita', () => {
   for (let width = 1; width <= 80; width++) {
@@ -28,9 +29,9 @@ test('painel estreito monta quadros menores e o blit mantém a mesma geometria',
     return { value: {} }
   })
   await $.session.start({ cwd: '/jojo', surface: 'terminal', isInteractive: true })
-  const panel = await $.ui.mount({ plugin: 'jojo', surface: 'terminal', component: 'Pane', requestId: 'jojo',
+  const panel = await $.ui.mount({ plugin: 'virapets', surface: 'terminal', component: 'Pane', requestId: 'virapets',
     props: { title: 'jojo', isFocused: false, bodyColumns: 30 } })
-  const raster = await panel.find({ type: 'Raster', key: 'jojo' })
+  const raster = await panel.find({ type: 'Raster', key: 'virapets' })
   expect(raster?.props.columns).toBe(24)
   expect(raster?.props.rows).toBe(14)
   await clock.advance(1440)
@@ -45,9 +46,9 @@ test('a composição Flightdeck também cabe no corpo estreito do painel', async
     const { Text } = $.ui.resolve(e)
     return <Text>Flightdeck</Text>
   })
-  const panel = await $.ui.mount({ plugin: 'jojo', surface: 'terminal', component: 'Pane', requestId: 'flightdeck',
+  const panel = await $.ui.mount({ plugin: 'virapets', surface: 'terminal', component: 'Pane', requestId: 'flightdeck',
     props: { title: 'Flightdeck', isFocused: false, bodyColumns: 38 } })
-  const raster = await panel.find({ type: 'Raster', key: 'jojo' })
+  const raster = await panel.find({ type: 'Raster', key: 'virapets' })
   expect(raster?.props.columns).toBe(32)
   expect(raster?.props.rows).toBe(18)
 })

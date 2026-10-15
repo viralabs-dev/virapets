@@ -1,6 +1,6 @@
 import { expect, test } from 'claude-code/testing'
 import type { Engine } from 'claude-code/testing'
-import { FRAME_SETS } from '../hooks/frames'
+import { FRAME_SETS } from '../generated/pets/jojo/frames'
 const FRAMES = FRAME_SETS[24]!.frames
 
 /** O painel montado uma vez por teste: ele se redesenha quando o humor muda. */
@@ -11,10 +11,10 @@ const shown = async ($: Engine): Promise<string> => {
   let drawn = panes.get($)
   if (!drawn) {
     drawn = await $.ui.mount({
-      plugin: 'jojo',
+      plugin: 'virapets',
       surface: 'terminal',
       component: 'Pane',
-      requestId: 'jojo',
+      requestId: 'virapets',
       props: { title: 'jojo', isFocused: false, bodyColumns: 30 },
     })
     panes.set($, drawn)
@@ -80,13 +80,13 @@ test('o painel desenha o Raster e o rótulo do humor', async ($, on) => {
   on('turn.complete', async () => ({ text: '' }))
   await $.turn.complete(done())
   const drawn = await $.ui.mount({
-    plugin: 'jojo',
+    plugin: 'virapets',
     surface: 'terminal',
     component: 'Pane',
-    requestId: 'jojo',
+    requestId: 'virapets',
     props: { title: 'jojo', isFocused: false, bodyColumns: 30 },
   })
-  expect(await drawn.find({ type: 'Raster', key: 'jojo' })).toBeDefined()
+  expect(await drawn.find({ type: 'Raster', key: 'virapets' })).toBeDefined()
   expect(await drawn.find({ type: 'Text', text: 'HAPPY' })).toBeDefined()
 })
 
@@ -95,7 +95,7 @@ test('o desenho usa um quadro do humor mostrado no rótulo, não do WAITING', as
   await $.turn.complete(done())
   const drawn = panes.get($) ?? (await shown($), panes.get($))
   expect(await shown($)).toBe('HAPPY')
-  const raster = await drawn?.find({ type: 'Raster', key: 'jojo' })
+  const raster = await drawn?.find({ type: 'Raster', key: 'virapets' })
   expect(FRAMES.happy).toContain(raster?.props.cells as string)
   expect(FRAMES.waiting).not.toContain(raster?.props.cells as string)
 })
