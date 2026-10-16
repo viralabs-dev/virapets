@@ -10,6 +10,41 @@ Pets em pixel art que acompanham o Claude Code. Jojo, Mel e Dara compartilham o 
 
 Abra `assets/animation-virapets.html` para ver os 12 GIFs, com fundo claro/escuro, ZIP dos GIFs e pacotes de figurinhas incorporados. A galeria funciona sem servidor.
 
+## Pets animados
+
+Os quatro estados de cada pet, nos GIFs aprovados da galeria:
+
+| Estado | Jojo | Mel | Dara |
+|---|---|---|---|
+| HAPPY | <img src="assets/pets/jojo/animations/happy.gif" width="180" alt="Jojo — HAPPY animado"> | <img src="assets/pets/mel/animations/happy.gif" width="180" alt="Mel — HAPPY animado"> | <img src="assets/pets/dara/animations/happy.gif" width="180" alt="Dara — HAPPY animado"> |
+| BARKING | <img src="assets/pets/jojo/animations/barking.gif" width="180" alt="Jojo — BARKING animado"> | <img src="assets/pets/mel/animations/barking.gif" width="180" alt="Mel — BARKING animado"> | <img src="assets/pets/dara/animations/barking.gif" width="180" alt="Dara — BARKING animado"> |
+| WAITING | <img src="assets/pets/jojo/animations/waiting.gif" width="180" alt="Jojo — WAITING animado"> | <img src="assets/pets/mel/animations/waiting.gif" width="180" alt="Mel — WAITING animado"> | <img src="assets/pets/dara/animations/waiting.gif" width="180" alt="Dara — WAITING animado"> |
+| SLEEPING | <img src="assets/pets/jojo/animations/sleeping.gif" width="180" alt="Jojo — SLEEPING animado"> | <img src="assets/pets/mel/animations/sleeping.gif" width="180" alt="Mel — SLEEPING animado"> | <img src="assets/pets/dara/animations/sleeping.gif" width="180" alt="Dara — SLEEPING animado"> |
+
+## No Claude em ação
+
+Gravações da instalação local **ViraPets 0.4.0**, no **Claude Code 2.1.301**, com **Flightdeck 0.4.0**. Os GIFs abaixo foram renderizados a partir da saída real do terminal (PTY de 150×48 células); a resolução do painel é menor que a dos GIFs da galeria.
+
+**Jojo — HAPPY** · `/virapets jojo happy`
+
+<img src="docs/capturas/jojo-no-claude-0.4.0.gif" width="900" alt="Jojo em HAPPY animado no painel real do Claude com Flightdeck">
+
+[Ver captura estática](docs/capturas/jojo-no-claude-0.4.0.png)
+
+**Mel — BARKING** · `/virapets mel barking`
+
+<img src="docs/capturas/mel-no-claude-0.4.0.gif" width="900" alt="Mel em BARKING animado no painel real do Claude com Flightdeck">
+
+[Ver captura estática](docs/capturas/mel-no-claude-0.4.0.png)
+
+**Dara — SLEEPING** · `/virapets dara sleeping`
+
+<img src="docs/capturas/dara-no-claude-0.4.0.gif" width="900" alt="Dara em SLEEPING animado no painel real do Claude com Flightdeck">
+
+[Ver captura estática](docs/capturas/dara-no-claude-0.4.0.png)
+
+[Origem dos arquivos e detalhes da gravação](docs/capturas/README.md).
+
 ## Comandos
 
 ```text

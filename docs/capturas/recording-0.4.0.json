@@ -1,0 +1,43 @@
+{
+  "recorded_on": "2026-10-15",
+  "virapets_version": "0.4.0",
+  "source_commit": "96131a71f34fef723271db9c69fdede4ee40e8f3",
+  "claude_version": "2.1.301",
+  "flightdeck_version": "0.4.0",
+  "terminal_cells": [
+    150,
+    48
+  ],
+  "rendered_pixels": [
+    1200,
+    768
+  ],
+  "frame_sample_ms": 80,
+  "origin": "Real installed Claude Code CLI output captured through PTY and rendered with pyte/Pillow; no model prompt submitted.",
+  "clips": [
+    {
+      "pet": "jojo",
+      "mood": "happy",
+      "command": "/virapets jojo happy",
+      "start_s": 4.4,
+      "end_s": 8,
+      "gif_sha256": "27a784f3d09fa9ec9d7f03bb2074214e9ea6dc927eb4cba87c5904e71da8daf2"
+    },
+    {
+      "pet": "mel",
+      "mood": "barking",
+      "command": "/virapets mel barking",
+      "start_s": 9.4,
+      "end_s": 13.8,
+      "gif_sha256": "e1accc777cf2235282b99c16eee5a5aaf0424fbde29013462e0cf3850f4b1d89"
+    },
+    {
+      "pet": "dara",
+      "mood": "sleeping",
+      "command": "/virapets dara sleeping",
+      "start_s": 15.4,
+      "end_s": 23.4,
+      "gif_sha256": "81307c36ee845b899a24a01185a6780cbc4d345611517a65cb517f92ab3e5cf0"
+    }
+  ]
+}
