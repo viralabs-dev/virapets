@@ -1,0 +1,67 @@
+{
+  "origin": [
+    131,
+    19
+  ],
+  "fully_matched_frames": {
+    "mel/happy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "mel/barking": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/happy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/barking": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "background_mismatches": [],
+  "plugin_version": "0.3.1",
+  "claude_version": "2.1.301",
+  "plugin": "virapets@viralabs-virapets",
+  "scope": "user",
+  "old_jojo_enabled": false,
+  "reads_local_folder": true,
+  "session": "virapets-effects-installed.cast",
+  "command": "claude --setting-sources user --strict-mcp-config --tools \"\"",
+  "flightdeck_version": "0.4.0",
+  "method": "Full Raster pixels including transparency, RGB quantized by host to steps of 17; real installed user configuration without --plugin-dir.",
+  "frame_module_sha256": {
+    "mel": "3d102e47d76639d488a91ef785cf3b9357c5c92c13363818f44e14d9b91eb56f",
+    "dara": "c7a8bd04c2d3106b9e21813b0597486dfbb67e24c6096cd61a48f3f88a1da999"
+  },
+  "tests": {
+    "claude": 27,
+    "python": 10
+  }
+}

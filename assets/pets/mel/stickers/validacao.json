@@ -1,7 +1,7 @@
 [
   {
     "file": "mel-happy.webp",
-    "bytes": 170856,
+    "bytes": 170658,
     "frames": 8,
     "duration_ms": 960,
     "frame_durations_ms": [
@@ -20,11 +20,11 @@
     ],
     "lossless": true,
     "decoded_pixels_verified": true,
-    "source_sha256": "98c3876a803464b981494f1e5a068465d03c9e85136d034ff43d7cf4046cf6ff"
+    "source_sha256": "17d42aa457711f362e2fa15685592ef140d0a5dff70fe001e90fe7d4ee807482"
   },
   {
     "file": "mel-barking.webp",
-    "bytes": 166766,
+    "bytes": 166768,
     "frames": 8,
     "duration_ms": 1140,
     "frame_durations_ms": [
@@ -43,7 +43,7 @@
     ],
     "lossless": true,
     "decoded_pixels_verified": true,
-    "source_sha256": "ba036234b403aa64662f99ee7fb58019f2d3cc693ec7657f7b4edefafcb4750f"
+    "source_sha256": "5e973cb0587e9b96a33976e9bb5674d42d9316eeb7179bb0f193b22ff3f62444"
   },
   {
     "file": "mel-waiting.webp",

@@ -1,7 +1,7 @@
 [
   {
     "file": "dara-happy.webp",
-    "bytes": 145258,
+    "bytes": 145394,
     "frames": 8,
     "duration_ms": 960,
     "frame_durations_ms": [
@@ -20,11 +20,11 @@
     ],
     "lossless": true,
     "decoded_pixels_verified": true,
-    "source_sha256": "c479ddf53880184a846a7eaae0514beb6b6055b626044849c41995a0fcad1024"
+    "source_sha256": "60f99b318dd99923c59d2033e1f204a450be0ea6758b3fbd47909d46d373fd79"
   },
   {
     "file": "dara-barking.webp",
-    "bytes": 148422,
+    "bytes": 148880,
     "frames": 8,
     "duration_ms": 1140,
     "frame_durations_ms": [
@@ -43,7 +43,7 @@
     ],
     "lossless": true,
     "decoded_pixels_verified": true,
-    "source_sha256": "fa2e26fca3413556df206c90a1daf5018d9a074148b4ec6a1ae9ab1a52920411"
+    "source_sha256": "156444d14288929079b079d9bba0c276f795f91fe126d2b4d815786c64ab02a0"
   },
   {
     "file": "dara-waiting.webp",

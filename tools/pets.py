@@ -60,7 +60,7 @@ def main():
             destination.mkdir(exist_ok=True)
             for mood in MOODS:
                 with Image.open(path/'sprites'/f'{mood}.png') as source:
-                    frames, headroom = compose(source.convert('RGBA'), mood, data['sleepSigns'])
+                    frames, headroom = compose(source.convert('RGBA'), mood, data['sleepSigns'], data.get('effects'))
                 original, rounded = timings(mood, len(frames), data['timings'])
                 save_and_verify(destination/f'{mood}.gif', indexed_frames(frames), rounded)
                 manifest['animations'][mood] = {'file':f'{mood}.gif','width':frames[0].width,'height':frames[0].height,'frameCount':len(frames),'headroomPixels':headroom,'sourceDurationsMs':original,'durationsMs':rounded,'cycleMs':sum(rounded)}

@@ -4,6 +4,7 @@ from PIL import Image, ImageDraw
 from .sleep import SLEEP_SIGNS
 from .sleep import GLYPHS, SLEEP_COLOR
 from .raster import MOODS, ROOT
+from .effects import emotion_layer, GOLD, LIGHT
 
 
 
@@ -36,7 +37,7 @@ def timings(mood, count, timing_map=TIMINGS):
     return values, rounded
 
 
-def compose(strip, mood, sleep_signs=SLEEP_SIGNS):
+def compose(strip, mood, sleep_signs=SLEEP_SIGNS, effects=None):
     side = strip.height
     if side < 48 or strip.width % side:
         raise ValueError(f'{mood}: use uma faixa de quadros quadrados, lado >= 48')
@@ -49,6 +50,9 @@ def compose(strip, mood, sleep_signs=SLEEP_SIGNS):
     for i in range(strip.width // side):
         tile = strip.crop((i * side, 0, (i + 1) * side, side))
         tile.putalpha(tile.getchannel('A').point(lambda a: 255 if a >= 128 else 0))
+        effect = (effects or {}).get(mood)
+        if effect:
+            tile.alpha_composite(emotion_layer(tile, effect, i, strip.width // side))
         canvas = Image.new('RGBA', (side, side + headroom))
         canvas.alpha_composite(tile, (0, headroom))
         sign = sleep_signs[i % len(sleep_signs)] if mood == 'sleeping' else None
@@ -79,33 +83,40 @@ def indexed_frames(frames):
     # Uma paleta para o ciclo inteiro evita que as cores oscilem entre poses.
     # O índice 0 é a transparência e o 1 a cor exata do ZzZ, só para os pixels do
     # ZzZ: na mediana ele, com poucos pixels, virava um rosa do pelo. O desenho
-    # usa as outras 254 cores e nunca cai no lilás do ZzZ.
+    # usa as cores restantes e nunca cai no lilás do ZzZ. Efeitos dourados,
+    # quando presentes, também recebem entradas reservadas.
     zzz = tuple(int(SLEEP_COLOR[i:i + 2], 16) for i in (1, 3, 5))
+    reserved = [zzz]
+    visible_colors = {p[:3] for frame in frames for p in frame.get_flattened_data() if p[3]}
+    reserved.extend(color for color in (GOLD, LIGHT) if color in visible_colors)
+    offset = len(reserved) + 1
+    drawing_count = 256 - offset
     samples = []
     for frame in frames:
         pixels = frame.get_flattened_data() if hasattr(frame, 'get_flattened_data') else frame.getdata()
-        samples.extend((r, g, b) for r, g, b, a in pixels if a and (r, g, b) != zzz)
+        samples.extend((r, g, b) for r, g, b, a in pixels if a and (r, g, b) not in reserved)
     if not samples:
         raise ValueError('Animação vazia')
     width = 256
     height = (len(samples) + width - 1) // width
     swatch = Image.new('RGB', (width, height), samples[-1])
     swatch.putdata(samples + [samples[-1]] * (width * height - len(samples)))
-    drawing = swatch.quantize(colors=254, method=Image.Quantize.MEDIANCUT).getpalette()[:762]
-    drawing += drawing[:3] * (254 - len(drawing) // 3)
+    drawing = swatch.quantize(colors=drawing_count, method=Image.Quantize.MEDIANCUT).getpalette()[:drawing_count * 3]
+    drawing += drawing[:3] * (drawing_count - len(drawing) // 3)
     palette = Image.new('P', (1, 1))
     # Completa 256 entradas com repetições, para nenhum pixel cair num preto de enchimento.
-    palette.putpalette(drawing + drawing[:3] * 2)
-    colors = [0, 0, 0] + list(zzz) + drawing
+    palette.putpalette(drawing + drawing[:3] * offset)
+    colors = [0, 0, 0] + [channel for color in reserved for channel in color] + drawing
     result = []
     for frame in frames:
         indexed = frame.convert('RGB').quantize(palette=palette, dither=Image.Dither.NONE)
-        indexed = indexed.point([min(i + 2, 255) for i in range(256)])
+        indexed = indexed.point([min(i + offset, 255) for i in range(256)])
         indexed.putpalette(colors)
-        sleep = Image.new('L', frame.size)
-        sleep.putdata([255 if a and (r, g, b) == zzz else 0
-                       for r, g, b, a in (frame.get_flattened_data() if hasattr(frame, 'get_flattened_data') else frame.getdata())])
-        indexed.paste(1, mask=sleep)
+        for position, color in enumerate(reserved, 1):
+            mask = Image.new('L', frame.size)
+            mask.putdata([255 if a and (r, g, b) == color else 0
+                          for r, g, b, a in frame.get_flattened_data()])
+            indexed.paste(position, mask=mask)
         indexed.paste(0, mask=frame.getchannel('A').point(lambda a: 255 if a == 0 else 0))
         indexed.info['transparency'] = 0
         result.append(indexed)

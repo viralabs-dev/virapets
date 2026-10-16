@@ -18,6 +18,10 @@ def load_pet(path):
         raise ValueError(f'{ident}: name obrigatório')
     if data.get('status') not in ('ready', 'draft'):
         raise ValueError(f'{ident}: status deve ser ready ou draft')
+    effects = data.get('effects', {})
+    allowed = {'happy': 'sparkles', 'barking': 'bark'}
+    if not isinstance(effects, dict) or any(k not in allowed or allowed[k] != v for k, v in effects.items()):
+        raise ValueError(f'{ident}: effects aceita happy=sparkles e barking=bark')
     for mood in MOODS:
         times = data.get('timings', {}).get(mood)
         if not isinstance(times, list) or not times or any(type(t) is not int or t < 20 for t in times):
