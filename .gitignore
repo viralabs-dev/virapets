@@ -5,3 +5,7 @@ __pycache__/
 
 # Estado local do Claude Code
 .claude/
+
+# Ambiente e entregas locais de pets personalizados
+.venv/
+outputs/

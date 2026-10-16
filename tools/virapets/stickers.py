@@ -99,7 +99,7 @@ def export_stickers(path, data, output_dir):
         (temporary / 'validacao.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
         with zipfile.ZipFile(temporary / archive_name, 'w', zipfile.ZIP_DEFLATED) as archive:
             archive.writestr('title.txt', f'{name} animado\n'.encode('utf-8'))
-            archive.writestr('author.txt', b'ViraLabs\n')
+            archive.writestr('author.txt', (data.get('author', 'ViraLabs') + '\n').encode('utf-8'))
             archive.write(temporary / 'cover.png', 'cover.png')
             for mood in MOODS:
                 filename = f'{ident}-{mood}.webp'

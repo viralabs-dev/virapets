@@ -18,6 +18,8 @@ def load_pet(path):
         raise ValueError(f'{ident}: name obrigatório')
     if data.get('status') not in ('ready', 'draft'):
         raise ValueError(f'{ident}: status deve ser ready ou draft')
+    if 'author' in data and (not isinstance(data['author'], str) or not data['author'].strip()):
+        raise ValueError(f'{ident}: author precisa ser texto não vazio')
     effects = data.get('effects', {})
     allowed = {'happy': 'sparkles', 'barking': 'bark'}
     if not isinstance(effects, dict) or any(k not in allowed or allowed[k] != v for k, v in effects.items()):

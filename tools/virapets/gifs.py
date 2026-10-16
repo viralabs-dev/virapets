@@ -1,4 +1,5 @@
 """Compõe as faixas PNG e exporta GIFs com paleta estável e ZzZ animado."""
+import json
 from PIL import Image, ImageDraw
 
 from .sleep import SLEEP_SIGNS
@@ -136,3 +137,34 @@ def save_and_verify(path, frames, durations):
                 raise ValueError(f'{path}: duração incorreta no quadro {i}')
             if decoded.convert('RGBA').tobytes() != expected.convert('RGBA').tobytes():
                 raise ValueError(f'{path}: composição incorreta no quadro {i}')
+
+
+def export_gifs(path, data):
+    """Valida as quatro faixas antes de exportar o pet selecionado."""
+    prepared = {}
+    shape = None
+    for mood in MOODS:
+        with Image.open(path / 'sprites' / f'{mood}.png') as source:
+            strip = source.convert('RGBA')
+        side = strip.height
+        if side < 48 or strip.width != side * len(data['timings'][mood]):
+            raise ValueError(f'{mood}: largura deve ser lado × número de quadros de timings; lado >=48')
+        if shape is not None and side != shape:
+            raise ValueError('As quatro faixas precisam ter o mesmo lado por quadro')
+        shape = side
+        for i in range(strip.width // side):
+            alpha = strip.crop((i*side, 0, (i+1)*side, side)).getchannel('A')
+            if not alpha.point(lambda a: 255 if a >=128 else 0).getbbox() or alpha.getextrema()[0] != 0:
+                raise ValueError(f'{mood}/{i}: quadro vazio ou sem transparência real')
+        frames, headroom = compose(strip, mood, data['sleepSigns'], data.get('effects'))
+        original, rounded = timings(mood, len(frames), data['timings'])
+        prepared[mood] = (frames, headroom, original, rounded)
+    destination = path / 'animations'
+    destination.mkdir(exist_ok=True)
+    manifest = {'loop':0, 'transparent':True, 'gifTimeResolutionMs':10, 'animations':{}}
+    for mood, (frames, headroom, original, rounded) in prepared.items():
+        save_and_verify(destination / f'{mood}.gif', indexed_frames(frames), rounded)
+        manifest['animations'][mood] = {'file':f'{mood}.gif', 'width':frames[0].width,
+            'height':frames[0].height, 'frameCount':len(frames), 'headroomPixels':headroom,
+            'sourceDurationsMs':original, 'durationsMs':rounded, 'cycleMs':sum(rounded)}
+    (destination/'animations.json').write_text(json.dumps(manifest, indent=2)+'\n')
