@@ -21,7 +21,8 @@
       "command": "/virapets jojo happy",
       "start_s": 4.4,
       "end_s": 8,
-      "gif_sha256": "27a784f3d09fa9ec9d7f03bb2074214e9ea6dc927eb4cba87c5904e71da8daf2"
+      "gif_sha256": "beaa60731250ca43b47aef3ceef28177f58195fd8a89377ff6568b6eee78a877",
+      "png_sha256": "19c794415ab910d233ff1ab62f905e492d7d0b572f1a1ae95891e50d40649c98"
     },
     {
       "pet": "mel",
@@ -29,7 +30,8 @@
       "command": "/virapets mel barking",
       "start_s": 9.4,
       "end_s": 13.8,
-      "gif_sha256": "e1accc777cf2235282b99c16eee5a5aaf0424fbde29013462e0cf3850f4b1d89"
+      "gif_sha256": "94eaa887dc01ad816c079ee3c189e4fdafda7f9574aef39bbca78ac91297df41",
+      "png_sha256": "c2670af8479edc52359def78153984b8fb62d44461d1739805af0a0c6f21f47e"
     },
     {
       "pet": "dara",
@@ -37,7 +39,19 @@
       "command": "/virapets dara sleeping",
       "start_s": 15.4,
       "end_s": 23.4,
-      "gif_sha256": "81307c36ee845b899a24a01185a6780cbc4d345611517a65cb517f92ab3e5cf0"
+      "gif_sha256": "26ae84d916e44bd66a9412ee7f694de6bacebde10a46c14a0a0d28450fbbdaec",
+      "png_sha256": "990e2a4e85bdfe0e857dd13982f4742d1e83608abea7b1dfb496501f9c04fd7c"
     }
-  ]
+  ],
+  "privacy_revision": {
+    "date": "2026-10-16",
+    "removed": [
+      "local path",
+      "account plan",
+      "session usage and costs",
+      "context breakdown",
+      "session controls"
+    ],
+    "method": "Opaque pixel masks applied to every frame; character pixels, frame count and durations preserved."
+  }
 }

@@ -9,3 +9,11 @@ A saída ANSI foi renderizada com pyte/Pillow em 1200×768, usando células de 8
 [Metadados, intervalos e hashes](recording-0.4.0.json). Os GIFs dos personagens apresentados no README continuam sendo os originais em `assets/pets/<id>/animations/`; nenhuma arte ou configuração do painel foi alterada para estas gravações.
 
 `01-embaixo-da-flightdeck.png` é a captura histórica do Jojo 0.2.0 e permanece como referência, sem representar a instalação atual.
+
+## Privacidade das capturas
+
+Revisadas em 16/10/2026: caminhos locais, plano da conta, métricas de uso/custo/contexto e controles de sessão foram ocultados com máscaras opacas em todos os quadros. A captura histórica também omite branch, mensagem e indicadores da sessão. Os personagens, a quantidade de quadros e os tempos das animações foram preservados. Os hashes descrevem os arquivos revisados.
+
+A revisão abrange os arquivos atuais; commits anteriores podem conservar as versões originais. Antes de acrescentar uma captura, conferir todos os quadros e remover informações de conta, caminhos, prompts privados, credenciais e metadados pessoais.
+
+Também foram removidos os perfis APP1 de duas pranchas de referência em `assets/pets/`, preservando os pixels. Relatórios históricos de validação mantêm os hashes da época em que foram executados.

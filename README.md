@@ -27,6 +27,8 @@ Gravações da instalação local **ViraPets 0.4.0**, no **Claude Code 2.1.301**
 
 **Jojo — HAPPY** · `/virapets jojo happy`
 
+As capturas abaixo tiveram dados de conta, caminhos locais e métricas da sessão ocultados em todos os quadros.
+
 <img src="docs/capturas/jojo-no-claude-0.4.0.gif" width="900" alt="Jojo em HAPPY animado no painel real do Claude com Flightdeck">
 
 [Ver captura estática](docs/capturas/jojo-no-claude-0.4.0.png)
