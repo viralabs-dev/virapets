@@ -32,10 +32,34 @@ class FramesTest(unittest.TestCase):
         self.assertLess(max(reduced.getpixel((1, 3))[:3]), 20)
         self.assertEqual(reduced.getpixel((0, 3))[3], 0)
 
+    def test_detalhes_internos_preservam_cor_sem_perder_contorno(self):
+        source = Image.new('RGBA', (64, 64))
+        for y in range(8, 56):
+            for x in range(8, 56):
+                source.putpixel((x, y), (0, 0, 0, 255) if x in (8, 24, 25, 26) else (210, 130, 70, 255))
+        outlined = reduce_sprite(source, 8)
+        detailed = reduce_sprite(source, 8, 'detailed')
+        self.assertEqual(outlined.getpixel((3, 3))[:3], (0, 0, 0))
+        self.assertGreater(detailed.getpixel((3, 3))[0], 100)
+        self.assertEqual(detailed.getpixel((1, 3))[:3], (0, 0, 0))
+        self.assertEqual(detailed.getpixel((0, 3))[3], 0)
+
+    def test_dara_compartilha_paleta_compacta_entre_todas_as_poses(self):
+        frames = extract(ROOT / 'assets/pets/dara/animations', 48, preserve_edges=True, profile='detailed')
+        colors = {color for poses in frames.values() for grid in poses
+                  for row in grid for pair in row for color in pair if color}
+        self.assertLessEqual(len(colors), 65)
+        self.assertIn('#000000', colors)
+        # Pele clara, tons castanhos e a bandana continuam distintos.
+        rgb = [tuple(int(c[i:i+2], 16) for i in (1, 3, 5)) for c in colors]
+        self.assertTrue(any(min(p) > 180 for p in rgb))
+        self.assertTrue(any(r > 140 and g < 80 and b < 80 for r, g, b in rgb))
+
     def test_sono_bitmap_sem_sobrepor_cao_ou_deixar_rastros(self):
         for path, data in pets():
-            for size in (8, 16, 24, 32, 40, 48):
-                for i, grid in enumerate(extract(path / 'animations', size, preserve_edges=True)['sleeping']):
+            rendering = data.get('rendering', {})
+            for size in rendering.get('sizes', [8, 16, 24, 32, 40, 48]):
+                for i, grid in enumerate(extract(path / 'animations', size, preserve_edges=True, profile=rendering.get('profile', 'outlined'))['sleeping']):
                     dog = decode(cells(grid))
                     composed = decode(cells(grid, 'sleeping', i, data['sleepSigns']))
                     changed = 0

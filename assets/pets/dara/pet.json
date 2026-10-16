@@ -82,5 +82,21 @@
   "effects": {
     "happy": "sparkles",
     "barking": "bark"
+  },
+  "rendering": {
+    "profile": "detailed",
+    "sizes": [
+      8,
+      16,
+      24,
+      28,
+      32,
+      36,
+      40,
+      42,
+      44,
+      46,
+      48
+    ]
   }
 }

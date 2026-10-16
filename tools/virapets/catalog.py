@@ -22,6 +22,14 @@ def load_pet(path):
     allowed = {'happy': 'sparkles', 'barking': 'bark'}
     if not isinstance(effects, dict) or any(k not in allowed or allowed[k] != v for k, v in effects.items()):
         raise ValueError(f'{ident}: effects aceita happy=sparkles e barking=bark')
+    rendering = data.get('rendering', {})
+    if not isinstance(rendering, dict) or set(rendering) - {'profile', 'sizes'} or rendering.get('profile', 'outlined') not in ('outlined', 'detailed'):
+        raise ValueError(f'{ident}: rendering aceita profile outlined/detailed e sizes')
+    sizes = rendering.get('sizes', [8, 16, 24, 32, 40, 48])
+    if (not isinstance(sizes, list) or not sizes
+        or any(type(n) is not int or n < 8 or n > 48 or n % 2 for n in sizes)
+        or sizes != sorted(set(sizes)) or sizes[-1] != 48):
+        raise ValueError(f'{ident}: sizes exige tamanhos pares ordenados de 8 a 48, terminando em 48')
     for mood in MOODS:
         times = data.get('timings', {}).get(mood)
         if not isinstance(times, list) or not times or any(type(t) is not int or t < 20 for t in times):

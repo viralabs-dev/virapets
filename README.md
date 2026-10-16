@@ -34,7 +34,7 @@ Os eventos automáticos continuam após a escolha manual. Um turno novo acorda o
 
 ## Instalação e migração
 
-A versão 0.3.1 é a evolução do plugin Jojo. A renomeação do repositório, a publicação do código e a atualização da instalação são etapas distintas. Estes comandos de marketplace dependem da publicação da versão nova:
+A versão 0.3.2 é a evolução do plugin Jojo. A renomeação do repositório, a publicação do código e a atualização da instalação são etapas distintas. Estes comandos de marketplace dependem da publicação da versão nova:
 
 ```text
 /plugin install virapets --marketplace viralabs-dev/claude-mods
@@ -92,9 +92,11 @@ python3 tools/pets.py validate
 
 `timings` contém uma lista por humor, em milissegundos (mínimo 20). `sleepSigns` tem um item por quadro sleeping: `null` quando acorda, ou `["ZzZ", deslocamentoHorizontal, posiçãoVertical]`; aceita letras z/Z, até três, e posição vertical 0 ou 1. A arte PNG não deve conter ZzZ, que é composto pelo pipeline.
 
-`gifs` exporta apenas o pet escolhido, ou todos se omitido. **Não execute gifs no Jojo para apenas compilar o runtime:** seus GIFs aprovados já estão prontos. `build` lê os GIFs, gera seis escalas Raster por pet e atualiza o catálogo e a galeria. `build --pet mel` recompila só Mel; pets ainda sem GIFs ficam fora da compilação e galeria, e só entram no catálogo após terem frames gerados. `validate` confere todos, inclusive pastas incompletas. `gallery --output caminho.html` recria somente a galeria.
+`gifs` exporta apenas o pet escolhido, ou todos se omitido. **Não execute gifs no Jojo para apenas compilar o runtime:** seus GIFs aprovados já estão prontos. `build` lê os GIFs, gera as escalas Raster configuradas por pet e atualiza o catálogo e a galeria. `build --pet mel` recompila só Mel; pets ainda sem GIFs ficam fora da compilação e galeria, e só entram no catálogo após terem frames gerados. `validate` confere todos, inclusive pastas incompletas. `gallery --output caminho.html` recria somente a galeria.
 
 `effects` é opcional: `{"happy":"sparkles","barking":"bark"}` acrescenta brilhos e traços dourados sincronizados às poses, sem repintar ou diminuir o pet. Mel e Dara usam essa camada; Jojo conserva os efeitos da arte aprovada. As cores douradas têm entradas próprias na paleta GIF para não se confundirem com o pelo.
+
+`rendering` configura somente a redução para o terminal. O perfil padrão `outlined` e as seis escalas originais permanecem em Jojo e Mel. Dara usa `detailed`, que preserva as cores internas dos óculos e da bandana e reforça apenas a borda externa. Uma paleta compartilhada de até 65 cores reduz as combinações de estilos por pose no Raster; suas escalas extras 28, 36, 42, 44 e 46 aproveitam melhor painéis estreitos, inclusive em monitor Full HD na vertical. `sizes` deve conter números pares ordenados entre 8 e 48 e terminar em 48. GIFs, sprites e figurinhas permanecem iguais.
 
 Os GIFs são a fonte canônica de quadros e tempos do painel. Para substituir um GIF pronto, mantenha os quatro tamanhos iguais, transparência, loop infinito e contagens coerentes com o manifesto; rode `build`. O tempo efetivo vem do GIF, enquanto `timings` configura a próxima exportação dos PNGs. O GIF arredonda limites acumulados em passos de 10 ms para evitar deriva.
 
@@ -108,7 +110,7 @@ No Android, abra o arquivo `.wastickers` em um aplicativo compatível com esse f
 
 ## Aparência e limites
 
-O Claude desenha o pet em Raster de meio-blocos, em seis larguras (8 a 48), conservando margens laterais. A redução preserva traços escuros; as poses não são misturadas. O ZzZ é removido do GIF por sua cor reservada e reconstruído em pixels, acima da cabeça, sem depender da fonte. No menor tamanho, as letras são compactadas para não cobrir personagens altos. O personagem não encolhe para acomodá-las.
+O Claude desenha o pet em Raster de meio-blocos, em larguras de 8 a 48 pixels, conservando margens laterais. A redução preserva traços escuros; as poses não são misturadas. O ZzZ é removido do GIF por sua cor reservada e reconstruído em pixels, acima da cabeça, sem depender da fonte. No menor tamanho, as letras são compactadas para não cobrir personagens altos. O personagem não encolhe para acomodá-las.
 
 Use terminal True Color; o host ainda quantiza cores em passos de 17. A galeria tem resolução maior que o terminal. Painéis abaixo de 10 colunas e superfícies não terminais mostram somente o humor.
 

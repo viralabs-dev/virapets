@@ -1,4 +1,6 @@
 import { expect, mock, test } from 'claude-code/testing'
+import { FRAME_SETS as DARA } from '../generated/pets/dara/frames'
+import { FRAME_SETS as MEL } from '../generated/pets/mel/frames'
 import { FRAME_SETS } from '../generated/pets/jojo/frames'
 import { frameSetForWidth as fit } from '../hooks/layout'
 const frameSetForWidth = (width: number) => fit(width, FRAME_SETS)
@@ -51,4 +53,39 @@ test('a composição Flightdeck também cabe no corpo estreito do painel', async
   const raster = await panel.find({ type: 'Raster', key: 'virapets' })
   expect(raster?.props.columns).toBe(32)
   expect(raster?.props.rows).toBe(18)
+})
+
+test('Dara aproveita larguras intermediárias sem alterar Mel ou Jojo', () => {
+  for (const [width, size] of [[30, 28], [38, 36], [44, 42], [46, 44], [48, 46], [50, 48]]) {
+    expect(fit(width!, DARA)?.columns).toBe(size)
+  }
+  expect(fit(48, MEL)?.columns).toBe(40)
+  expect(frameSetForWidth(48)?.columns).toBe(40)
+  for (let width = 1; width <= 80; width++) {
+    const fitted = fit(width, DARA)
+    if (fitted) expect(fitted.columns + 2 <= width).toBe(true)
+  }
+})
+
+test('Dara anima a escala intermediária com a mesma geometria do painel', async ($, on) => {
+  on('session.start', async (_$, e) => ({ cwd: e.cwd }))
+  on('command.register', async (_$, e) => ({ value: { command: e.name } }))
+  on('ui.open', async () => ({ value: { isPlaced: true } }))
+  const clock = mock.clock(on)
+  const paints: { columns?: number; rows?: number; cells: string }[] = []
+  on('ui.blit', async (_$, e) => { if ('cells' in e) paints.push(e); return { value: {} } })
+  await $.session.start({ cwd: '/virapets', surface: 'terminal', isInteractive: true })
+  const panel = await $.ui.mount({ plugin: 'virapets', surface: 'terminal', component: 'Pane', requestId: 'virapets',
+    props: { title: 'ViraPets', isFocused: false, bodyColumns: 48 } })
+  await $.command.run({ command: 'virapets', args: 'dara sleeping' })
+  const raster = await panel.find({ type: 'Raster', key: 'virapets' })
+  expect(raster?.props.columns).toBe(46)
+  expect(raster?.props.rows).toBe(25)
+  await clock.advance(1600)
+  expect(paints.length > 0).toBe(true)
+  for (const paint of paints) {
+    expect(paint.columns).toBe(46)
+    expect(paint.rows).toBe(25)
+    expect(DARA[46]!.frames.sleeping).toContain(paint.cells)
+  }
 })

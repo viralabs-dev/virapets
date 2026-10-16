@@ -42,11 +42,11 @@ test('trocar de pet reinicia a pose e os próximos blits não reaproveitam o cã
   await clock.advance(1600)
   for (const id of ['mel', 'dara', 'jojo'] as const) {
     await $.command.run({ command: 'virapets', args: `${id} barking` })
-    expect((await panel.find({ type: 'Raster', key: 'virapets' }))?.props.cells).toBe(PETS[id].FRAME_SETS[24]!.frames.barking[0])
+    expect((await panel.find({ type: 'Raster', key: 'virapets' }))?.props.cells).toBe(PETS[id].FRAME_SETS[id === 'dara' ? 28 : 24]!.frames.barking[0])
     painted.length = 0
     await clock.advance(480)
     expect(painted.length > 0).toBe(true)
-    for (const cells of painted) expect(PETS[id].FRAME_SETS[24]!.frames.barking).toContain(cells)
+    for (const cells of painted) expect(PETS[id].FRAME_SETS[id === 'dara' ? 28 : 24]!.frames.barking).toContain(cells)
   }
 })
 

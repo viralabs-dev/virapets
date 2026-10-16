@@ -71,7 +71,7 @@ def main():
     for path, data in selected:
         validate_animations(path,data)
         if args.command == 'build':
-            build(path/'animations', ROOT/'generated/pets'/data['id']/'frames.ts', sleep_signs=data['sleepSigns'])
+            build(path/'animations', ROOT/'generated/pets'/data['id']/'frames.ts', sleep_signs=data['sleepSigns'], rendering=data.get('rendering'))
         print(f'{data["id"]}: validado')
     if args.command == 'build':
         runtime_pets = [(p, d) for p, d in all_pets if (ROOT/'generated/pets'/d['id']/'frames.ts').exists()]

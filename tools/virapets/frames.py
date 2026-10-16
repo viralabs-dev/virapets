@@ -52,8 +52,11 @@ def cells(grid, mood=None, frame=0, sleep_signs=SLEEP_SIGNS):
     return base64.b64encode(struct.pack('<%dI' % len(words), *words)).decode()
 
 
-def build(assets_dir, output, size=48, sleep_signs=SLEEP_SIGNS):
-    frames = extract(assets_dir, size=size, preserve_edges=True)
+def build(assets_dir, output, size=48, sleep_signs=SLEEP_SIGNS, rendering=None):
+    rendering = rendering or {}
+    profile = rendering.get('profile', 'outlined')
+    sizes = rendering.get('sizes', [8, 16, 24, 32, 40, 48])
+    frames = extract(assets_dir, size=size, preserve_edges=True, profile=profile)
     rows, columns = len(frames['happy'][0]) + SLEEP_ROWS, len(frames['happy'][0][0])
     out = ['// Gerado por tools/pets.py build. Não edite à mão.',
            "import type { Mood } from '../../../types'",
@@ -72,10 +75,10 @@ def build(assets_dir, output, size=48, sleep_signs=SLEEP_SIGNS):
     out.append('export const FRAME_SETS: Record<number, FrameSet> = {')
     out.append(f'  {columns}: {{ columns: COLUMNS, rows: ROWS, frames: FRAMES }},')
     output.parent.mkdir(parents=True, exist_ok=True)
-    for small_size in (8, 16, 24, 32, 40):
+    for small_size in sizes:
         if small_size >= size:
             continue
-        small = extract(assets_dir, size=small_size, preserve_edges=True)
+        small = extract(assets_dir, size=small_size, preserve_edges=True, profile=profile)
         stem = f'{output.stem}-{small_size}'
         out.insert(1, f"import {{ FRAMES as FRAMES_{small_size} }} from './{stem}'")
         out.append(f'  {small_size}: {{ columns: {small_size}, rows: {small_size // 2 + SLEEP_ROWS}, frames: FRAMES_{small_size} }},')

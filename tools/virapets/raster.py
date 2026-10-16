@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[2]
 MOODS = ('happy', 'barking', 'waiting', 'sleeping')
 
 
-def reduce_sprite(tile, size):
+def reduce_sprite(tile, size, profile='outlined'):
     """Integra a área dos pixels e conserva o traço escuro nas bordas.
 
     Nearest perde linhas menores que um pixel do terminal. A média de área
@@ -34,7 +34,9 @@ def reduce_sprite(tile, size):
                            or alpha.getpixel((xx, yy)) < 96
                            for xx, yy in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)))
             coverage = dark.getpixel((x, y))
-            if (boundary and coverage >= 24) or coverage >= 80:
+            # Arte detalhada conserva a média de cor dentro do rosto: reforçar
+            # cada traço interno fundia óculos, olhos e bandana em blocos pretos.
+            if (boundary and coverage >= 24) or (profile == 'outlined' and coverage >= 80):
                 r, g, b = 0, 0, 0
             output.putpixel((x, y), (r, g, b, 255))
     return output
@@ -71,14 +73,36 @@ def durations(assets_dir):
     return result
 
 
-def extract(assets_dir, size=48, preserve_edges=False):
+def extract(assets_dir, size=48, preserve_edges=False, profile='outlined'):
     if size < 8 or size % 2:
         raise ValueError('size deve ser par e >= 8')
+    tiles = {mood: [reduce_sprite(tile, size, profile) if preserve_edges
+                    else tile.resize((size, size), Image.Resampling.NEAREST)
+                    for tile in gif_frames(Path(assets_dir) / f'{mood}.gif')]
+             for mood in MOODS}
+    palette = None
+    if preserve_edges and profile == 'detailed':
+        # Paleta compartilhada evita centenas de novas combinações de cores
+        # por pose no terminal e mantém os mesmos tons durante todo o ciclo.
+        samples = [p[:3] for frames in tiles.values() for tile in frames
+                   for p in tile.get_flattened_data() if p[3]]
+        swatch = Image.new('RGB', (len(samples), 1))
+        swatch.putdata(samples)
+        palette = swatch.quantize(colors=64, dither=Image.Dither.NONE)
     result = {}
     for mood in MOODS:
         result[mood] = []
-        for tile in gif_frames(Path(assets_dir) / f'{mood}.gif'):
-            tile = reduce_sprite(tile, size) if preserve_edges else tile.resize((size, size), Image.Resampling.NEAREST)
+        for tile in tiles[mood]:
+            if palette is not None:
+                alpha = tile.getchannel('A')
+                original = tile
+                tile = tile.convert('RGB').quantize(palette=palette, dither=Image.Dither.NONE).convert('RGBA')
+                tile.putalpha(alpha)
+                # Contorno preto exato, independente da paleta das sombras.
+                for y in range(size):
+                    for x in range(size):
+                        if original.getpixel((x, y)) == (0, 0, 0, 255):
+                            tile.putpixel((x, y), (0, 0, 0, 255))
 
             def pixel(x, y):
                 r, g, b, a = tile.getpixel((x, y))

@@ -1,0 +1,881 @@
+{
+  "terminal": {
+    "version": 2,
+    "width": 135,
+    "height": 110,
+    "timestamp": 1792112060
+  },
+  "size": 48,
+  "origin": [
+    86,
+    74
+  ],
+  "transitions": [
+    {
+      "time": 3.478604,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 3.631597,
+      "mood": "dara/happy",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 3.752131,
+      "mood": "dara/happy",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 3.837997,
+      "mood": "dara/happy",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 3.92493,
+      "mood": "dara/happy",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 3.991084,
+      "mood": "dara/happy",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 4.084781,
+      "mood": "dara/happy",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 4.186134,
+      "mood": "dara/happy",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 4.354061,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 4.602157,
+      "mood": "dara/happy",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 4.705659,
+      "mood": "dara/happy",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 4.788898,
+      "mood": "dara/happy",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 4.873541,
+      "mood": "dara/happy",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 4.953653,
+      "mood": "dara/happy",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 5.045243,
+      "mood": "dara/happy",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 5.147226,
+      "mood": "dara/happy",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 5.311583,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 5.562214,
+      "mood": "dara/happy",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 5.664529,
+      "mood": "dara/happy",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 5.745415,
+      "mood": "dara/happy",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 5.827856,
+      "mood": "dara/happy",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 5.912415,
+      "mood": "dara/happy",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 6.012651,
+      "mood": "dara/happy",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 6.10185,
+      "mood": "dara/happy",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 6.28244,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 6.517359,
+      "mood": "dara/happy",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 6.618991,
+      "mood": "dara/happy",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 6.718825,
+      "mood": "dara/happy",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 6.783918,
+      "mood": "dara/happy",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 6.870356,
+      "mood": "dara/happy",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 6.972912,
+      "mood": "dara/happy",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 7.068229,
+      "mood": "dara/happy",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 7.233571,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 7.480669,
+      "mood": "dara/happy",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 7.580314,
+      "mood": "dara/happy",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 7.664378,
+      "mood": "dara/happy",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 7.745601,
+      "mood": "dara/happy",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 7.828821,
+      "mood": "dara/happy",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 7.930444,
+      "mood": "dara/happy",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 8.015419,
+      "mood": "dara/happy",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 8.203717,
+      "mood": "dara/happy",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 8.458964,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 8.780305,
+      "mood": "dara/barking",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 8.831052,
+      "mood": "dara/barking",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 8.897069,
+      "mood": "dara/barking",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 9.061581,
+      "mood": "dara/barking",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 9.196778,
+      "mood": "dara/barking",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 9.243752,
+      "mood": "dara/barking",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 9.310859,
+      "mood": "dara/barking",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 9.560451,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 9.907517,
+      "mood": "dara/barking",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 9.97516,
+      "mood": "dara/barking",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 10.052602,
+      "mood": "dara/barking",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 10.195267,
+      "mood": "dara/barking",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 10.332131,
+      "mood": "dara/barking",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 10.397284,
+      "mood": "dara/barking",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 10.446342,
+      "mood": "dara/barking",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 10.6981,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 11.048932,
+      "mood": "dara/barking",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 11.116496,
+      "mood": "dara/barking",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 11.181455,
+      "mood": "dara/barking",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 11.345764,
+      "mood": "dara/barking",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 11.466192,
+      "mood": "dara/barking",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 11.532098,
+      "mood": "dara/barking",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 11.595155,
+      "mood": "dara/barking",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 11.828058,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 12.191662,
+      "mood": "dara/barking",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 12.257688,
+      "mood": "dara/barking",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 12.322718,
+      "mood": "dara/barking",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 12.486279,
+      "mood": "dara/barking",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 12.617443,
+      "mood": "dara/barking",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 12.666714,
+      "mood": "dara/barking",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 12.731081,
+      "mood": "dara/barking",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 12.976631,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 13.323674,
+      "mood": "dara/barking",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 13.391656,
+      "mood": "dara/barking",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 13.457029,
+      "mood": "dara/barking",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 13.6215,
+      "mood": "dara/barking",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 13.753291,
+      "mood": "dara/barking",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 13.801599,
+      "mood": "dara/barking",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 13.867842,
+      "mood": "dara/barking",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 14.105203,
+      "mood": "dara/barking",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 14.491767,
+      "mood": "dara/waiting",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 15.847889,
+      "mood": "dara/waiting",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 15.964275,
+      "mood": "dara/waiting",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 16.052334,
+      "mood": "dara/waiting",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 16.134096,
+      "mood": "dara/waiting",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 16.215913,
+      "mood": "dara/waiting",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 16.29769,
+      "mood": "dara/waiting",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 16.410821,
+      "mood": "dara/waiting",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 16.803962,
+      "mood": "dara/waiting",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 18.249474,
+      "mood": "dara/waiting",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 18.362987,
+      "mood": "dara/waiting",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 18.444485,
+      "mood": "dara/waiting",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 18.526303,
+      "mood": "dara/waiting",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 18.608345,
+      "mood": "dara/waiting",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 18.691389,
+      "mood": "dara/waiting",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 18.80694,
+      "mood": "dara/waiting",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 19.205266,
+      "mood": "dara/waiting",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 20.462318,
+      "mood": "dara/sleeping",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 21.421091,
+      "mood": "dara/sleeping",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 21.601484,
+      "mood": "dara/sleeping",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 21.846087,
+      "mood": "dara/sleeping",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 22.492043,
+      "mood": "dara/sleeping",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 22.703887,
+      "mood": "dara/sleeping",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 23.102683,
+      "mood": "dara/sleeping",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 23.366217,
+      "mood": "dara/sleeping",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 24.156105,
+      "mood": "dara/sleeping",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 25.160415,
+      "mood": "dara/sleeping",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 25.341076,
+      "mood": "dara/sleeping",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 25.56974,
+      "mood": "dara/sleeping",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 26.231323,
+      "mood": "dara/sleeping",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 26.443306,
+      "mood": "dara/sleeping",
+      "frame": 5,
+      "match": 1.0
+    },
+    {
+      "time": 26.851901,
+      "mood": "dara/sleeping",
+      "frame": 6,
+      "match": 1.0
+    },
+    {
+      "time": 27.100488,
+      "mood": "dara/sleeping",
+      "frame": 7,
+      "match": 1.0
+    },
+    {
+      "time": 27.903354,
+      "mood": "dara/sleeping",
+      "frame": 0,
+      "match": 1.0
+    },
+    {
+      "time": 28.905281,
+      "mood": "dara/sleeping",
+      "frame": 1,
+      "match": 1.0
+    },
+    {
+      "time": 29.07136,
+      "mood": "dara/sleeping",
+      "frame": 2,
+      "match": 1.0
+    },
+    {
+      "time": 29.316808,
+      "mood": "dara/sleeping",
+      "frame": 3,
+      "match": 1.0
+    },
+    {
+      "time": 29.973054,
+      "mood": "dara/sleeping",
+      "frame": 4,
+      "match": 1.0
+    },
+    {
+      "time": 30.18752,
+      "mood": "dara/sleeping",
+      "frame": 5,
+      "match": 1.0
+    }
+  ],
+  "fully_matched_frames": {
+    "dara/happy": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/barking": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/waiting": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "dara/sleeping": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "background_mismatches": [],
+  "plugin_version": "0.3.2",
+  "claude_version": "2.1.301",
+  "flightdeck_version": "0.4.0",
+  "installation": "user; local folder; no --plugin-dir",
+  "tests": {
+    "claude": 29,
+    "python": 12
+  },
+  "rendering": {
+    "profile": "detailed",
+    "palette_max_colors": 65,
+    "sizes": [
+      8,
+      16,
+      24,
+      28,
+      32,
+      36,
+      40,
+      42,
+      44,
+      46,
+      48
+    ]
+  },
+  "preserved_sha256": {
+    "assets/pets/jojo/pet.json": "e6bb3dd9c57f041d5027068a3582476d0b8d2c5c35e50657f05cb7d11ed9b584",
+    "assets/pets/jojo/animation-jojo.html": "32304ffeaa73ef24f7635aa2669ebe95519cfa85b7cc5974dd157382c8bce63b",
+    "assets/pets/mel/pet.json": "e5d8907852380eff22cc9ac4aeac6e2f0d6a1b7647f4825955d86b11efc5bfa6",
+    "assets/pets/mel/stickers/mel-waiting.webp": "cfe0eada18f836c3148749d92a5ba563f9062822c7350cc1ef8698f994969838",
+    "assets/pets/mel/stickers/validacao.json": "62195989059d85d66ba66a35424058dd5f22b43c3e777c117f375630cf72667c",
+    "assets/pets/mel/stickers/mel-barking.webp": "5dc60d8980b15b0f1af97a73a64b9934f07ac03f1351ad6ab56dc5b52efc59a7",
+    "assets/pets/mel/stickers/mel-happy.webp": "fb7d6887cf5b054779c262b7506be11264c4ed5c8e535321f19516fa83fc398c",
+    "assets/pets/mel/stickers/cover.png": "14adfacaa35c716720afcfc3a8778daf71a585a4351a55e39bb6e91f31d1a161",
+    "assets/pets/mel/stickers/mel-sleeping.webp": "3b6ea34ca553649ccace20262a060d169b8a793906f86368be6257ee1eefd793",
+    "assets/pets/mel/stickers/mel-animado.wastickers": "db2a776ce4441eaece147abf315165e5de280af51c549929dac4648e4ae185c3",
+    "assets/pets/mel/animations/waiting.gif": "d0e7be65c8cb6f000725f614e26014e909a4cb15c9d6096d6311df80dc4e8c13",
+    "assets/pets/mel/animations/happy.gif": "17d42aa457711f362e2fa15685592ef140d0a5dff70fe001e90fe7d4ee807482",
+    "assets/pets/mel/animations/sleeping.gif": "a7efc62a10fcacdc824b17cf9bdb794844681ab956c52f7e8fd6e1a4b00e3eea",
+    "assets/pets/mel/animations/barking.gif": "5e973cb0587e9b96a33976e9bb5674d42d9316eeb7179bb0f193b22ff3f62444",
+    "assets/pets/mel/animations/animations.json": "7e70a5add5ff9b10c994cf4981feec3ef9669c60a76d8973deec2b8984e40c64",
+    "assets/pets/mel/sprites/sleeping.png": "405b6abe08a2a328ee7797136ef8217509f7dcf365200057a157892853be39e0",
+    "assets/pets/mel/sprites/happy.png": "dabbb9cab0452d1945a581c97edd33b82de4cfe74b2a9a70d156352fea5cea0b",
+    "assets/pets/mel/sprites/waiting.png": "3f651af918036e41e36b2f1f46abdb7df4d42286996c4c208ee7a52b2f2eb5ec",
+    "assets/pets/mel/sprites/barking.png": "b8d02ff9ee26cad97bec19d290ee2fa81233f03c64527965b7acf0626ed29c3c",
+    "assets/pets/mel/references/prompts.txt": "587d66c143883a0d2dfb0adedaae22f205209670aa126abdfa776a72991210fe",
+    "assets/pets/mel/references/v2-validation.json": "af09d613d6921fd092461ebc19fc0e15df89ef0d3d1b0c0374fb791a9f55b40b",
+    "assets/pets/mel/references/reference.jpeg": "c0e2964b1a8424186b6970666fd2c2f48bd0edcd0e93a886e73f5cf76c05506a",
+    "assets/pets/mel/references/v2-prompts.txt": "36ff936b7877cde0d71688bcabf2568f0c628353b115874a25cb1c82f021e26b",
+    "assets/pets/dara/stickers/dara-sleeping.webp": "cad630e9d1557e0242f833ee53da8297794e81087e3509ac16d9ec0c0699919b",
+    "assets/pets/dara/stickers/dara-happy.webp": "26d11da6674af2024e53ee6177149ca69050ea37d8f6f8d8c92538933acf6843",
+    "assets/pets/dara/stickers/dara-animado.wastickers": "f963af3cedc34a61840fe15de919a3b6ce52ad2f0ca5da211646a071d2b0ace4",
+    "assets/pets/dara/stickers/validacao.json": "faf7547a0f2e599aad3f43d84420c34af066e039763ca02bf3d6bc3ba1293ec2",
+    "assets/pets/dara/stickers/cover.png": "70b707c44b4e1b87c98c31b55eed8abbc8a1d44de0f226898bf46426f2e305f1",
+    "assets/pets/dara/stickers/dara-barking.webp": "7a8c1b1b8eaf108dd0223bf439512dda78d57402ebcce1571e410357fd5bcd10",
+    "assets/pets/dara/stickers/dara-waiting.webp": "f38f8e09abec677cf2b8c12fec4be2da1e080b1674eafd1cb7321421b43e71b4",
+    "assets/pets/dara/animations/waiting.gif": "bfacf915919f6aa0121e85e7c7e73f6b6ae03aff61cccab254452febb90cbea2",
+    "assets/pets/dara/animations/happy.gif": "60f99b318dd99923c59d2033e1f204a450be0ea6758b3fbd47909d46d373fd79",
+    "assets/pets/dara/animations/sleeping.gif": "edb46965af9c35ab909874a19abc04535ec863769210e38a314bb194ebdeb7a3",
+    "assets/pets/dara/animations/barking.gif": "156444d14288929079b079d9bba0c276f795f91fe126d2b4d815786c64ab02a0",
+    "assets/pets/dara/animations/animations.json": "7e70a5add5ff9b10c994cf4981feec3ef9669c60a76d8973deec2b8984e40c64",
+    "assets/pets/dara/sprites/sleeping.png": "5174873472e11bf8b346b4c8c5bd2e28154aa09151ae5f37ff8b2e16fed52bf1",
+    "assets/pets/dara/sprites/happy.png": "2c6b2aeb587ea56019ea7a994d175f6aa06f609f04b6cf771f10f4d06a2f2d97",
+    "assets/pets/dara/sprites/waiting.png": "3b1d9f3bc7617e6e40a1a0e9da4c792d3a159c46d8347b86fd70908fbf0b4e3a",
+    "assets/pets/dara/sprites/barking.png": "1d831ce385351ee396a0a14c487c8fafe6518aa1c35e9426617bf5ce84a4f5b9",
+    "assets/pets/dara/references/reference-initial-cone.jpeg": "68c9866e2b4b55cc8ab28a3d37056753c5891739b708bcdb67d6dc695c9c9258",
+    "assets/pets/dara/references/validation.json": "94f9ab3ddb33d53ebffba90051c4641fa7bd5a9250b9f9bfd7d506d1fdbc4dc9",
+    "assets/pets/dara/references/prompts.txt": "ef7a13c56c735d6d179c15359080e777fdecd5dd637d933ae237246d492023b0",
+    "assets/pets/dara/references/reference-current.png": "942d8ea66ecbbdb14cc827bf5d777f98ffc9778e6b0b89bfbb11b862296df665",
+    "assets/pets/dara/references/prompts-sleeping.txt": "d57074931052176bd6a59c0061d6d92e49b70b0d0f655502bf65fb321f8b591c",
+    "assets/pets/dara/references/validation-sleeping.json": "3dc768372ad991fb4186570582e8db4947f12d6aa309fef3c1dadd87eedd4d5c",
+    "assets/pets/jojo/stickers/jojo-animado.wastickers": "7d6c4f247d20af040b7c1fe09c6e712a00b643afc116d5a002fa95197e5f0c83",
+    "assets/pets/jojo/animations/waiting.gif": "2f9a3276f3fba3b2d22738d6cdd99ead581d4e1b4f31242b0564816a05578a2b",
+    "assets/pets/jojo/animations/happy.gif": "2829e2f0fb5bbfde8de1f9daaae955b69d0b0f973030673aaa0eb4f4610b6205",
+    "assets/pets/jojo/animations/sleeping.gif": "c3be81a5fd92739041f6ba7b32138b3022a8617d6af95c22518ffb7ac94d6f54",
+    "assets/pets/jojo/animations/barking.gif": "0856312f425c48395adc6370ac4f09e46c20df3a168ff8bac3e164c770695a7a",
+    "assets/pets/jojo/animations/animations.json": "1b8b46e08d4121f0f3e1a0962b4ae27ef946cfcef7d4160f3795869156bc1f0f",
+    "assets/pets/jojo/sprites/sleeping.png": "94acfda878032cce79a58b974eac348d245ecaf6f54cbb8463ef1e08d6005504",
+    "assets/pets/jojo/sprites/happy.png": "0763bf084d2a3c892340564e06402e64643a4460ebfdadc3d82ada2a5e803ecf",
+    "assets/pets/jojo/sprites/waiting.png": "d9f28ce20ae478dca47b7f2059cd04e454df3cd61d06bc96b7e8388cf7cc6169",
+    "assets/pets/jojo/sprites/barking.png": "965b2b769be560e695424f4e5a903ea657a67ee9c7010d055d29e35dc55ddad7",
+    "assets/pets/jojo/references/jojo-sprites.jpeg": "cadcb4e83e18b89453935fece1dd2c84bd6debaf792ef70aba724b0493b4dfb1",
+    "generated/pets/jojo/frames-24.ts": "9472c2f1f96c71dabd2b7cda3f2ac636029d1aca698c8e80022d1cdb7cd4c699",
+    "generated/pets/jojo/frames-16.ts": "7684f1c1df2cc9db6aad149ac39fde2e904b2f848b7e7efaca54702d0ff34ce3",
+    "generated/pets/jojo/frames-32.ts": "2577f2c5bfddb996a4509a8a4b41c35c165913ff454753a41836617a10173ce2",
+    "generated/pets/jojo/frames.ts": "6bede3ead9462e32ddba22ff4ad3865fd8b2558a54e4ee042ce775ac6428dfc9",
+    "generated/pets/jojo/frames-40.ts": "2e64227cae4b634aacca8ee9c4b0fd8b81c53e5d757a3326e4b0e711957f5260",
+    "generated/pets/jojo/frames-8.ts": "89fe9f55bb6f4aa28d99ed7fe6faf483e6ab0774d8b19166d68b8e12c8d2a6a1",
+    "generated/pets/mel/frames-24.ts": "b316533f805f5c66730db938e74ee20e3be3cd54c9c446e667e5a1721407a6d7",
+    "generated/pets/mel/frames-16.ts": "12de8b2a8cf8d56658293eb436884848371b2371d91fc42d263ab8a55ca4a0d2",
+    "generated/pets/mel/frames-32.ts": "3b9990dec2c48c006eaddebd9db4bdd24881508f3bb4ae97dada71ec8310fdff",
+    "generated/pets/mel/frames.ts": "3d102e47d76639d488a91ef785cf3b9357c5c92c13363818f44e14d9b91eb56f",
+    "generated/pets/mel/frames-40.ts": "9b71369ad7573976180aba924fcd378e5b10ab37f97c1ed433f09092b19d4c4f",
+    "generated/pets/mel/frames-8.ts": "0aeb3e32a63ed714a7f18a0e90fbc5b58273a219e9695a12d3814ec2782f9ed0"
+  },
+  "visual_scope": "Actual Claude PTY 135x110 cells, rendered at 8x16 pixels per cell (1080x1760). Full HD rotated target: 1080x1920. Not a physical monitor screenshot.",
+  "proof": "outputs/virapets/dara-monitor-vertical.gif in delivery workspace"
+}
