@@ -25,3 +25,10 @@ Revisão de 19/10: por pedido do dono, o editor voltou ao layout aberto inline. 
 ## Verificação e limites
 
 Relatórios docs/validation/cutout-motion-selection.json e -public.json registram resultados reais. Testes unitários cobrem continuidade/limites/tempos/âncoras e máscarasdisjuntas/inversão/morfologia/escolhaObjeto. QAChromium usa exemplo sintético, modelo local real e apenasGETs de arquivos; nenhum upload. Head nos cantos, roundtripJSON, nova marca apósrecrop,32framesWebP e ausênciaZzzno despertar conferidos. Viewports390/1440 e teclado não equivalem aAndroid/iOS/Firefox/Safarireais. Sem importaçãoAndroid, som ou paridade de expressão/arte com Jojo/Mel/Dara.
+
+
+## Regressão de composição corrigida em 19/10
+
+O retorno inline ocultava campos específicos mas deixava `.studio` como irmão de `#photo-editor` e `.how` visível; foto sem arte limpava apenas o canvas e mantinha Pingo/metadados/exportações vazios. Não foi cache ou CSS sobrescrevendo hidden: o bloco não recebia hidden. O QA anterior só verificava espécie/paleta e perdeu a composição completa.
+
+`#procedural-editor` agora engloba o destino procedural e instruções; hidden/inert no modo foto. O mesmo `.studio` é movido para `#photo-output` dentro da foto, sem clonar listeners ou estado, e só aparece se hasArt. Importador compartilhado acima dos painéis recupera receitas mesmo em foto vazia. Teste de navegador verifica ancestralidade, unicidade, display computado, retângulos, foco, estado, importação e exportações em desktop/mobile.
