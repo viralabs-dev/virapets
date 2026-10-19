@@ -1,6 +1,20 @@
 # ViraPets
 
-**[Abra o criador online de mascotes](https://daneiel.github.io/virapets/)** — personalize um personagem procedural no navegador, veja os humores e exporte seu pacote. Funciona sem LLM; a arte é mais simples que a dos pets ilustrados do projeto.
+**[Abra o criador online de mascotes](https://daneiel.github.io/virapets/)** — crie um cão procedural, transforme uma foto local em pixel art ou copie o prompt para criar uma ilustração em outra plataforma. Veja os quatro humores e exporte seu pacote. O editor local não exige conta nem chave de API.
+
+## English quick start
+
+[ViraPets Studio](https://daneiel.github.io/virapets/) offers three creation paths:
+
+| Path | What you do | Result |
+|---|---|---|
+| Procedural drawing | Pick colors, ears, name, package ID and author | A simple original pixel dog; no model download |
+| Local photo → pixel art | Choose a photo, refine its cutout, pixelize and retouch it | Your cutout with simple animated motion; optional local SlimSAM segmentation |
+| Full prompt | Copy the complete prompt and attach your photo in an image-capable platform | A separately generated illustrated pet; output depends on that platform's tools |
+
+For a first try, change the procedural colors and switch between the four moods. For the photo path, use the synthetic example before choosing a personal photo. Assisted cutout is optional: its first activation downloads **36,315,496 uncompressed bytes** of runtime and weights; manual brushes work without it. Photo processing runs in your browser. The JSON recipe saves the derived pixel art, not the source photo or EXIF. Save a recipe before closing the page if you want to resume.
+
+Download ZIP for the four sprite strips and manifest, PNG for the selected mood, JSON to resume editing, or `.wastickers` for a compatible Android importer. The website does not install stickers directly into WhatsApp. To use your pet in Claude Code, follow the clone, Python/Pillow, `deliver`, `validate` and optional `build` steps in [the installation walkthrough](#crie-seu-próprio-pet-com-sua-imagem). The [studio guide](site/README.md) covers editing, privacy, exports and troubleshooting in English; the project guide below is in Brazilian Portuguese.
 
 
 Pets em pixel art que acompanham o Claude Code. Jojo, Mel e Dara compartilham o mesmo painel, eventos e relógio; cada personagem tem suas próprias imagens e tempos.
@@ -115,6 +129,54 @@ tests/                     testes no motor Claude Code
 
 `hooks/pets.ts` resolve a seleção e valida comandos. `hooks/mood.ts` mantém as regras dos humores. `hooks/animation.ts` avança conforme os tempos do pet; `hooks/layout.ts` escolhe o tamanho que cabe. `hooks/register.tsx` conecta tudo ao Claude e à Flightdeck. Adicionar arte não exige copiar esses módulos.
 
+## Crie no navegador: três caminhos
+
+Abra o [ViraPets Studio](https://daneiel.github.io/virapets/). Para desenvolvimento local, na raiz do clone execute `python3 -m http.server 8000 --directory site` e abra `http://localhost:8000`. Python é apenas o servidor nesse caso; o visitante da página publicada não precisa instalá-lo. Use HTTP para o Worker de recorte assistido; abrir `site/index.html` diretamente pode servir ao desenho procedural, mas não é o caminho recomendado para foto/modelo.
+
+### 1. Desenho procedural, sem modelo
+
+Escolha **Desenho procedural**, altere nome, ID, autor, cores de pelagem/focinho/lenço e orelhas. Um ID como `luna` vira o nome da pasta do pet: use minúsculas, números e hífens, começando por letra, e não sobrescreva um pet existente. Troque entre Feliz, Latindo, Esperando e Dormindo; pause quando quiser examinar um quadro. A arte é geométrica e simples, não uma reprodução de Jojo, Mel ou Dara. Não há geração livre por texto nessa opção.
+
+### 2. Foto → pixel art local
+
+1. O criador abre em um **modal** que mostra somente o modo ativo. Alterne sem perder a foto ou as configurações; Escape fecha e devolve o foco ao botão. Escolha esse modo e carregue PNG, JPEG ou WebP de até 10 MB/40 megapixels, ou use **Testar com desenho de exemplo**, que cria uma imagem sintética sem foto privada.
+2. Recorte o pet. Sem modelo, use **Pincel: manter/apagar**, tamanho do pincel, **Manter tudo**, **Limpar máscara** e **Desfazer máscara**. A área verde é preservada. Com o recorte assistido ativado, marque pontos no pet para incluir e no fundo para excluir; acrescente pontos na cabeça e no corpo se apenas uma parte for selecionada. As setas e Enter também controlam seleção e retoque.
+3. Confira a prévia contínua do recorte e ajuste grade de 16–96 e paleta de 2–32 cores, com contorno opcional. Clique **Aplicar recorte e pixelizar** para criar a arte final. Escolha uma cor extraída ou uma cor de retoque e pinte; a borracha remove pixels. Aplicar o recorte novamente substitui os retoques.
+4. Marque o centro da cabeça na pixel art final e ajuste seu tamanho (8–100) e lado do focinho (automático/esquerda/direita). A marca é obrigatória antes de exportar e pode ser ajustada depois; reaplicar o recorte a reinicia. A animação usa essa referência para posicionar traços de latido e Zzz acompanhando o movimento. No sono, os quadros 4 e 5 do despertar ficam sem Zzz. A simulação permite conferir a arte existente ou experimentar o desenho sintético sem baixar o modelo.
+5. Confira os quatro humores e exporte. Os movimentos transformam o recorte; não criam olhos, bocas nem novas expressões. Para uma nova ilustração a partir da foto, siga o prompt no próximo caminho.
+
+**Recorte assistido é opcional.** SlimSAM q8 executa no navegador via Worker/WASM. A primeira ativação transfere até **36.315.496 bytes não comprimidos** de pesos e runtime (aproximadamente 36,3 MB), além dos arquivos pequenos da página; compressão e cache podem reduzir a transferência real. Os pesos vêm do Hugging Face/CDNs. Isso consome rede, memória e bateria; não exige token nem API paga por imagem. Cache não é garantia de funcionamento offline. Se falhar, use os pincéis ou tente ativar novamente. **Cancelar / liberar modelo** libera a sessão; **Limpar cache do modelo** remove o cache específico dos pesos.
+
+A foto e a máscara ficam na memória da página, sem upload. O download do modelo expõe ao host os metadados normais de rede, como IP; não envia a foto. Receita e ZIP guardam a pixel art derivada e a marcação da cabeça, sem a imagem original, nome do arquivo ou EXIF. Importar a receita permite retocar e reanimar; para refazer o recorte, escolha a foto novamente. Salve antes de recarregar ou descartar a arte.
+
+
+**Seleção de objeto e fundo:** use “Preferir objeto inteiro” ou “Detalhe / parte”. Mantenha vários pontos no mesmo pet; para acrescentar outra área ou objeto, escolha “Adicionar área”. “Fundo” mostra o inverso da seleção do pet; os pincéis passam a editar essa área. Expanda, contraia ou suavize a máscara e use desfazer/refazer. Escolha fundo transparente ou uma cor antes de aplicar. A foto original fica intacta. Não há garantia de recorte perfeito de pelos; refinamento manual continua disponível.
+
+**Fluidez:** a prévia interpola os movimentos; figurinhas de recorte usam 32 quadros por humor. As faixas PNG conservam oito quadros por humor para o contrato ViraPets. A marcação da cabeça é feita depois de recortar/pixelizar: acompanha a transformação sem depender das coordenadas da foto original. Refazer o recorte pede uma nova marcação. Zzz desaparecem ao despertar; traços de som acompanham o latido. São efeitos visuais sem som, sem redesenhar a boca ou os olhos.
+
+![Simulação real com exemplo sintético: latido à esquerda e sono à direita](docs/images/photo-animation-demo.gif)
+
+[Captura real do editor](docs/images/photo-animation-desktop.png). A simulação usa o mesmo renderizador da prévia/exportação, com exemplo sintético sem foto privada.
+
+### 3. Prompt completo para uma plataforma de imagem
+
+Clique **Ver e copiar prompt**, copie o texto completo e envie com a foto na plataforma de sua escolha. Se a área de transferência falhar, selecione e copie o texto manualmente ou baixe `prompt.txt`. O site não envia o prompt nem a foto para essa plataforma. Ela precisa ter ferramentas de imagem e arquivos para produzir PNGs reais; os recursos disponíveis determinam se entregará apenas as faixas ou também GIFs, galeria e figurinhas. Não há Gradio, serviço de geração externo ou API gratuita de LLM integrado ao editor. O procedimento local abaixo completa a entrega quando necessário.
+
+### Baixe o resultado e continue depois
+
+| Botão | O que recebe | Próximo passo |
+|---|---|---|
+| Baixar meu companheiro · ZIP | `assets/pets/<id>/pet.json`, quatro faixas PNG, receita e README de instalação | Extraia a pasta do pet no clone e execute `deliver`/`validate` abaixo |
+| PNG deste humor | Uma faixa transparente 2048×256, com oito células de 256×256 | Arquivo de sprites; não é GIF animado |
+| Salvar receita JSON | Configuração procedural ou pixel art derivada com marcação da cabeça | Use **Importar JSON** para continuar no editor |
+| Baixar figurinhas animadas | Um `.wastickers` com quatro WebPs 512×512 | Abra em importador Android compatível e adicione ao WhatsApp por ele |
+
+Os quatro PNGs do modo foto já incluem seus efeitos de latido/sono, e `sleepSigns` vem com itens `null` para evitar Zzz duplicado pelo pipeline. O modo procedural mantém seus sinais compostos pelo pipeline. Confira o README do pacote antes de editar o manifesto.
+
+A exportação de figurinhas exige suporte Canvas WebP no navegador; se falhar, PNG, ZIP e receita continuam disponíveis. Para gerar e validar GIFs/figurinhas localmente, use o pipeline Python abaixo. A importação Android depende do aplicativo e ainda não foi testada em aparelho físico. Testes em viewport estreita no desktop não comprovam compatibilidade em telefone. O editor oferece tema claro/escuro baseado nos tokens BRABO e favicon do Jojo; esses elementos não alteram os arquivos do pet.
+
+[Guia do editor e solução de problemas](site/README.md) · [Análise do modo procedural](docs/design/characters-without-llm.md) · [Arquitetura da foto local](docs/design/photo-editor-implementation.md).
+
 ## Crie seu próprio pet com sua imagem
 
 **Copie o [prompt universal completo](skills/virapets-create-pet/references/prompt.md) e envie junto com a foto** no Claude, Codex, Gemini, Qwen, Grok ou outra LLM. O prompt pede um ZIP com os quatro PNGs, `pet.json` e `README-INSTALAR.md` indicando exatamente onde colocar os arquivos. Quando a plataforma consegue executar o pipeline e acessar os modelos, também entrega GIFs, galeria e figurinhas. Se ela só gerar imagens, o mesmo prompt entrega os arquivos de entrada e os comandos para finalizar localmente. As ferramentas disponíveis na plataforma determinam quais arquivos ela consegue gerar; uma LLM apenas textual não cria PNGs reais. Para manter o acabamento ViraLabs, anexe também [happy.png do Jojo](assets/pets/jojo/sprites/happy.png). A identidade continua sendo a do seu personagem.
@@ -140,7 +202,7 @@ O exemplo usa `luna`; escolha um identificador livre, em minúsculas, sem espaç
 
 ### 2. Gere e salve as quatro faixas
 
-Cada PNG deve ter **2048×256**, com **oito quadros de 256×256** na horizontal, transparência real, sem título nem linhas de grade. Siga as poses do prompt; mantenha escala, contorno, cores e posição de apoio. O código desenha o ZzZ: não coloque letras na arte.
+Cada PNG deve ter **2048×256**, com **oito quadros de 256×256** na horizontal, transparência real, sem título nem linhas de grade. Siga as poses do prompt; mantenha escala, contorno, cores e posição de apoio. Para faixas ilustradas geradas com o prompt, o código desenha o ZzZ: não coloque letras na arte. As exportações do editor de foto já incluem esses efeitos e usam `sleepSigns` com itens `null`; preserve o manifesto do ZIP.
 
 Se a LLM entregou o ZIP do prompt, copie `assets/pets/luna/` para a mesma pasta no clone (ajuste `luna` ao id escolhido). Nesse caso, pule `new`: o pacote já contém `pet.json`. Se você gerou só as imagens e usou `new`, salve os resultados assim:
 
@@ -201,7 +263,7 @@ python tools/pets.py build --pet luna
 
 `new` não sobrescreve um pet existente. Cada faixa tem N quadros quadrados na horizontal, fundo transparente e lado mínimo de 48 pixels; os pets atuais usam 8 quadros de 256×256. Mantenha escala, margens e ponto de apoio entre poses. Ajuste `timings` e `sleepSigns` de `pet.json` ao número de quadros. `status` é `draft` ou `ready`, exclusivamente para informar a revisão visual.
 
-`timings` contém uma lista por humor, em milissegundos (mínimo 20). `sleepSigns` tem um item por quadro sleeping: `null` quando acorda, ou `["ZzZ", deslocamentoHorizontal, posiçãoVertical]`; aceita letras z/Z, até três, e posição vertical 0 ou 1. A arte PNG não deve conter ZzZ, que é composto pelo pipeline.
+`timings` contém uma lista por humor, em milissegundos (mínimo 20). `sleepSigns` tem um item por quadro sleeping: `null` quando acorda, ou `["ZzZ", deslocamentoHorizontal, posiçãoVertical]`; aceita letras z/Z, até três, e posição vertical 0 ou 1. Nas faixas ilustradas do prompt e no modo procedural, a arte PNG não deve conter ZzZ, que é composto pelo pipeline. No modo foto do Studio, os efeitos já vêm desenhados nas faixas e `sleepSigns` contém itens `null`, para não duplicar letras.
 
 `gifs` exporta apenas o pet escolhido, ou todos se omitido. **Não execute gifs no Jojo para apenas compilar o runtime:** seus GIFs aprovados já estão prontos. `build` lê os GIFs, gera as escalas Raster configuradas por pet e atualiza o catálogo e a galeria. `build --pet mel` recompila só Mel; pets ainda sem GIFs ficam fora da compilação e galeria, e só entram no catálogo após terem frames gerados. `validate` confere todos, inclusive pastas incompletas. `gallery --output caminho.html` recria somente a galeria.
 
@@ -215,7 +277,7 @@ Os módulos Python separam catálogo/validação (`catalog.py`), composição/pa
 
 ## Figurinhas para WhatsApp
 
-Cada pet tem um pacote único em `assets/pets/<id>/stickers/<id>-animado.wastickers`, com HAPPY, BARKING, WAITING e SLEEPING. O pacote do Jojo foi preservado. Para os novos pets, `python3 tools/pets.py stickers --pet mel` e `--pet dara` exportam WebP animado, transparente, 512×512 e verificam a composição e os tempos.
+Cada pet tem um pacote único em `assets/pets/<id>/stickers/<id>-animado.wastickers`, com HAPPY, BARKING, WAITING e SLEEPING. O pacote do Jojo foi preservado. Para reexportar Mel ou Dara, `python3 tools/pets.py stickers --pet mel` e `--pet dara` exportam WebP animado, transparente, 512×512 e verificam a composição e os tempos.
 
 No Android, abra o arquivo `.wastickers` em um aplicativo compatível com esse formato e use a opção de adicionar o pacote ao WhatsApp. Pacotes existentes são preservados; use `--force` para reexportar após alterar um GIF. A exportação é validada localmente; a importação no aparelho depende do aplicativo e não foi testada aqui. Arrastar um WebP animado para o WhatsApp Web não equivale a importar o pacote.
 
