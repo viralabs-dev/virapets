@@ -1,20 +1,23 @@
 # ViraPets
 
-**[Abra o criador online de mascotes](https://daneiel.github.io/virapets/)** — crie um cão procedural, transforme uma foto local em pixel art ou copie o prompt para criar uma ilustração em outra plataforma. Veja os quatro humores e exporte seu pacote. O editor local não exige conta nem chave de API.
+**[Abra o criador online de mascotes](https://daneiel.github.io/virapets/)** — crie um animal procedural, transforme uma foto local em pixel art ou copie o prompt para criar uma ilustração em outra plataforma. Veja os quatro humores e exporte seu pacote. O editor local não exige conta nem chave de API.
 
-## English quick start
+## Primeiros passos
 
-[ViraPets Studio](https://daneiel.github.io/virapets/) offers three creation paths:
+O [ViraPets Studio](https://daneiel.github.io/virapets/) oferece três formas de criação:
 
-| Path | What you do | Result |
+| Modo | O que você faz | Resultado |
 |---|---|---|
-| Procedural drawing | Pick colors, ears, name, package ID and author | A simple original pixel dog; no model download |
-| Local photo → pixel art | Choose a photo, refine its cutout, pixelize and retouch it | Your cutout with simple animated motion; optional local SlimSAM segmentation |
-| Full prompt | Copy the complete prompt and attach your photo in an image-capable platform | A separately generated illustrated pet; output depends on that platform's tools |
+| Desenho procedural | Escolhe espécie, raça ou tipo, cores, nome, ID do pacote e autoria | Um personagem original em pixel art, sem baixar modelos |
+| Foto local → pixel art | Escolhe uma foto, refina o recorte, pixeliza e retoca | Seu recorte com movimentos animados; segmentação local com SlimSAM é opcional |
+| Prompt completo | Copia o prompt e anexa sua foto em uma plataforma com geração de imagens | Um pet ilustrado gerado separadamente; os arquivos entregues dependem das ferramentas da plataforma |
 
-For a first try, change the procedural colors and switch between the four moods. For the photo path, use the synthetic example before choosing a personal photo. Assisted cutout is optional: its first activation downloads **36,315,496 uncompressed bytes** of runtime and weights; manual brushes work without it. Photo processing runs in your browser. The JSON recipe saves the derived pixel art, not the source photo or EXIF. Save a recipe before closing the page if you want to resume.
+Para experimentar, abra o desenho procedural, personalize o personagem e alterne entre os quatro humores. No modo foto, teste primeiro o exemplo sintético antes de escolher uma foto pessoal. O recorte assistido é opcional: a primeira ativação baixa **36.315.496 bytes descompactados** de ferramentas e pesos do modelo. Os pincéis manuais funcionam sem esse download. O processamento da foto acontece no navegador. A receita JSON salva a pixel art derivada, sem a foto original ou seus metadados EXIF. Salve uma receita antes de fechar a página para continuar depois.
 
-Download ZIP for the four sprite strips and manifest, PNG for the selected mood, JSON to resume editing, or `.wastickers` for a compatible Android importer. The website does not install stickers directly into WhatsApp. To use your pet in Claude Code, follow the clone, Python/Pillow, `deliver`, `validate` and optional `build` steps in [the installation walkthrough](#crie-seu-próprio-pet-com-sua-imagem). The [studio guide](site/README.md) covers editing, privacy, exports and troubleshooting in English; the project guide below is in Brazilian Portuguese.
+Baixe o ZIP com as quatro faixas de sprites e o manifesto, o PNG do humor selecionado, o JSON para retomar a edição ou o arquivo `.wastickers` para um aplicativo importador Android compatível. O site não instala figurinhas diretamente no WhatsApp. Para usar seu pet no Claude Code, siga as etapas de clonagem, Python/Pillow, `deliver`, `validate` e, opcionalmente, `build` no [passo a passo de instalação](#crie-seu-próprio-pet-com-sua-imagem). O [guia detalhado do editor](site/README.md), em inglês, explica edição, privacidade, exportações e solução de problemas; as instruções abaixo estão em português brasileiro.
+
+
+No desenho procedural, escolha **cachorro, gato, pato, galinha, pintinho, coelho, vaca, boi, lhama, camelo, passarinho ou lagarto**. Cachorros, gatos, coelhos e vacas oferecem raças/variedades; aves e répteis oferecem tipos, como calopsita, papagaio, iguana e camaleão. As opções modificam silhuetas e detalhes de desenhos estilizados. As cores continuam personalizáveis. Receitas antigas sem espécie abrem como cachorro SRD. Para animais que não são cães, o segundo humor aparece como **Chamando**, mantendo a chave técnica `barking` para compatibilidade dos pacotes.
 
 
 Pets em pixel art que acompanham o Claude Code. Jojo, Mel e Dara compartilham o mesmo painel, eventos e relógio; cada personagem tem suas próprias imagens e tempos.
@@ -26,6 +29,8 @@ Pets em pixel art que acompanham o Claude Code. Jojo, Mel e Dara compartilham o 
 | Dara | cadela clara e castanha, óculos, bandana vermelha e orelhas assimétricas | redução otimizada para painel estreito e monitor vertical |
 
 Abra `assets/animation-virapets.html` para ver os 12 GIFs, com fundo claro/escuro, ZIP dos GIFs e pacotes de figurinhas incorporados. A galeria funciona sem servidor.
+
+![Espécies e variedades desenhadas pelo criador](docs/images/species-contact-sheet.png)
 
 ## Pets animados
 
@@ -139,7 +144,7 @@ Escolha **Desenho procedural**, altere nome, ID, autor, cores de pelagem/focinho
 
 ### 2. Foto → pixel art local
 
-1. O criador abre em um **modal** que mostra somente o modo ativo. Alterne sem perder a foto ou as configurações; Escape fecha e devolve o foco ao botão. Escolha esse modo e carregue PNG, JPEG ou WebP de até 10 MB/40 megapixels, ou use **Testar com desenho de exemplo**, que cria uma imagem sintética sem foto privada.
+1. O criador fica **aberto na página**, com seletor visível e somente os controles do modo ativo. Alterne sem perder a foto, a máscara, a cabeça marcada ou as configurações. Escolha esse modo e carregue PNG, JPEG ou WebP de até 10 MB/40 megapixels, ou use **Testar com desenho de exemplo**, que cria uma imagem sintética sem foto privada.
 2. Recorte o pet. Sem modelo, use **Pincel: manter/apagar**, tamanho do pincel, **Manter tudo**, **Limpar máscara** e **Desfazer máscara**. A área verde é preservada. Com o recorte assistido ativado, marque pontos no pet para incluir e no fundo para excluir; acrescente pontos na cabeça e no corpo se apenas uma parte for selecionada. As setas e Enter também controlam seleção e retoque.
 3. Confira a prévia contínua do recorte e ajuste grade de 16–96 e paleta de 2–32 cores, com contorno opcional. Clique **Aplicar recorte e pixelizar** para criar a arte final. Escolha uma cor extraída ou uma cor de retoque e pinte; a borracha remove pixels. Aplicar o recorte novamente substitui os retoques.
 4. Marque o centro da cabeça na pixel art final e ajuste seu tamanho (8–100) e lado do focinho (automático/esquerda/direita). A marca é obrigatória antes de exportar e pode ser ajustada depois; reaplicar o recorte a reinicia. A animação usa essa referência para posicionar traços de latido e Zzz acompanhando o movimento. No sono, os quadros 4 e 5 do despertar ficam sem Zzz. A simulação permite conferir a arte existente ou experimentar o desenho sintético sem baixar o modelo.

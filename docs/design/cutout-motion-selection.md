@@ -1,4 +1,4 @@
-# Recorte fluido, cabeça e seleção em modal
+# Recorte fluido, cabeça e seleção em painel aberto
 
 AT-021/AT-022,19/10/2026. Continuação autorizada do Studio publicado para testar. Nenhuma alteração em arte/modelos existentes, hooks ou instalação; nenhuma integração externa de geração.
 
@@ -18,9 +18,9 @@ SlimSAM preserva múltiplos pontos positivos/negativos. ModoObjeto prefere másc
 
 Máscara interna representa pet; alternarPet/Fundo mostra o complemento e aplica pincel/refino à área escolhida, preservando a seleção lógica. Grow/shrink por disco e maioria local (raio1–4) refinam bordas. Histórico até10máscaras, desfazer/refazer, sem editar pixels dafoto original. Fundo final transparente ou preenchido comcor é calculado numa cópia ao aplicar pixelização. Trocar para transparente restaura resultado semcor; original permanece em memória intacto. Não prometer pelo perfeito nem seleção automática de qualquer objeto.
 
-## Modal e estado
+## Painel aberto e estado
 
-Dois lançadores abrem dialognativo; dentro dele só o painel ativo aparece/recebefoco. Foto não exibe opções procedurais nem o cachorroprocedural enquanto ainda não existe arte. Preview/exportação comuns seguem o modo ativo. Nodes movidos uma vez, sem clonarIDs: foto/máscara/receita e configurações sobrevivem à alternância e fechar/reabrir. Escape/fechar retornam foco,Tab permanece no modal, linkprompt fechaantes de abrir rota. Tema possui botão dentrodo modal; fundo opaco evita mostrar modo antigo. Layoutmobile semscrollhorizontal.
+Revisão de 19/10: por pedido do dono, o editor voltou ao layout aberto inline. O seletor permanece visível; foto e controles procedurais são ocultados e inertes conforme o modo ativo. Os mesmos nós mantêm foto/máscara/cabeça/receita/configuração na alternância. Prévia e exportações seguem o modo ativo. Não há dialog nem contenção de foco. Tema no cabeçalho com sol/lua e nome acessível; layout móvel sem rolagem horizontal.
 
 ## Verificação e limites
 

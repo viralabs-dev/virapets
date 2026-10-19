@@ -6,15 +6,15 @@ Open **[the published studio](https://daneiel.github.io/virapets/)**. No account
 
 | Path | Best for | How it works |
 |---|---|---|
-| **Desenho procedural** | Trying the editor immediately | Pick coat, muzzle and scarf colors, floppy or pointed ears, name, package ID and author. A simple original dog is drawn locally, without a model. |
+| **Desenho procedural** | Trying the editor immediately | Choose an animal, breed or type, colors, name, package ID and author. Original pixel characters are drawn locally, without a model. |
 | **Foto → pixel art local** | Keeping your photo's colors and silhouette | Cut out, pixelize and retouch a local image. The cutout moves; the editor does not draw new facial expressions. SlimSAM-assisted selection is optional. |
 | **Ver e copiar prompt** | Creating an illustrated character in another platform | Copy the complete project prompt and attach your photo to an image-capable platform. That platform's tools determine the real files it can produce. |
 
-Procedural and photo output have a simpler finish than the illustrated Jojo, Mel and Dara assets. The studio does not call a text-to-image service, Gradio endpoint or free LLM API.
+Procedural output uses stylized silhouettes, not exact breed portraits. Birds and reptiles are grouped by type rather than breed. Cow and ox are separate visual choices for the requested characters. Procedural and photo output have a simpler finish than the illustrated Jojo, Mel and Dara assets. The studio does not call a text-to-image service, Gradio endpoint or free LLM API.
 
 ## First use: procedural drawing
 
-1. Leave **Desenho procedural** selected and change the colors and ears.
+1. Select **Desenho procedural** in the inline mode switch. Choose an animal, its breed or type when available, then customize colors. Only the active mode’s tools are visible; switching preserves both editors.
 2. Set **Nome**, **ID do pacote** and **Seu nome / autor**. The ID becomes the pet's directory: start with a lowercase letter and use lowercase letters, digits and hyphens, up to 48 characters. Choose an unused ID before copying into a clone.
 3. Try **Feliz**, **Latindo**, **Esperando** and **Dormindo**. Use **Pausar animação** to examine the preview. Reduced-motion preference is respected.
 4. Save a JSON recipe to resume later, or download ZIP for the local delivery pipeline.
@@ -132,8 +132,8 @@ Browser evidence is recorded under [validation](../docs/validation/) and the [ph
 The published files live in `virapets/` of [daneiel/daneiel.github.io](https://github.com/daneiel/daneiel.github.io/tree/main/virapets). GitHub Pages serves that repository's `main` root. Editing this ViraPets repository does not automatically publish the personal site. A reviewed publication must copy all referenced static resources, including themes, favicon, prompt, photo modules, Worker, vendor runtime and notices, keeping relative paths intact, then verify the Pages deployment and public URL. There is no cross-repository synchronization workflow. Roll back by reverting the publication commit in the site repository; preserve its root page. Publishing the static page does not publish plugin commits.
 
 
-## Active mode modal and selection
+## Inline active mode and selection
 
-Each creator opens in a native modal. Only its active mode is visible/focusable; shared preview and exports follow the active mode. Escape closes it and restores launcher focus. Photo/mask/configuration state is retained when switching. Object mode prefers a broader credible SAM candidate; detail mode prefers score. Positive/negative points remain spatial prompts, with add/subtract area operations and manual brush fallback. Pet/background inverse selection, color/transparent fill, grow/shrink/smooth and mask undo/redo run locally. The source photo is never modified.
+The creator stays open inline on the page with a visible mode selector. Only the active mode’s controls are visible and focusable; shared preview and exports follow that mode. Switching preserves the photo, mask, head marker and procedural configuration. The page has no editor dialog or focus trap. The theme button in the header uses a sun/moon icon, action text and an accessible name. Object mode prefers a broader credible SAM candidate; detail mode prefers score. Positive/negative points remain spatial prompts, with add/subtract area operations and manual brush fallback. Pet/background inverse selection, color/transparent fill, grow/shrink/smooth and mask undo/redo run locally. The source photo is never modified.
 
 Cutout preview interpolates motion; animated stickers use32frames per mood, while PNG strips retain8. Head marking follows transformed final-art coordinates. Effects are baked into photo PNGs with null sleepSigns to avoid duplication; head guides are never exported.
