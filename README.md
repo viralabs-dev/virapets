@@ -1,5 +1,8 @@
 # ViraPets
 
+**[Abra o criador online de mascotes](https://daneiel.github.io/virapets/)** — personalize um personagem procedural no navegador, veja os humores e exporte seu pacote. Funciona sem LLM; a arte é mais simples que a dos pets ilustrados do projeto.
+
+
 Pets em pixel art que acompanham o Claude Code. Jojo, Mel e Dara compartilham o mesmo painel, eventos e relógio; cada personagem tem suas próprias imagens e tempos.
 
 | Pet | Identidade | Estado da arte |
@@ -251,3 +254,9 @@ Os requisitos de WebP animado (512×512, até 500 KB e ciclo até 10 s) seguem a
 ## Autor e licença
 
 Daniel Souza ([@daneiel](https://github.com/daneiel)). [MIT](LICENSE), para código e assets. As referências foram geradas por Gemini e as novas faixas foram criadas com a ferramenta de imagem do Codex. Prompts ficam em `assets/pets/<id>/references/`. Imagens sem garantia de direitos de terceiros.
+
+## Publicação da página do criador
+
+O criador está em [daneiel.github.io/virapets/](https://daneiel.github.io/virapets/). Os arquivos estáticos publicados ficam na pasta `virapets/` do repositório [daneiel/daneiel.github.io](https://github.com/daneiel/daneiel.github.io/tree/main/virapets). O GitHub Pages está configurado para publicar a raiz da branch `main` desse site pessoal; pushes lá iniciam o build/deploy do Pages.
+
+Alterar este repositório ViraPets não atualiza automaticamente o site pessoal: ainda não existe workflow de sincronização entre os repositórios. A publicação atual copia os arquivos estáticos revisados para o site pessoal e valida o deploy.
