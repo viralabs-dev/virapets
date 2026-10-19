@@ -1,4 +1,6 @@
-# Personagens sem LLM — primeira etapa (19/10/2026)
+# Personagens sem LLM — referência e evolução
+
+**Estado atual publicado:** o Studio oferece 12 animais e 26 combinações procedurais, além de recorte/pixelização/retoque de foto e SlimSAM opcional local. Consulte o [guia publicado consolidado](studio-published.md). A análise e os testes abaixo descrevem o marco inicial e continuam como histórico, não como lista de pendências atuais.
 
 ## Referência e diagnóstico
 
@@ -16,20 +18,20 @@ ViraPets `dfd29c9` já anima sem LLM, rede, arquivos ou processo em runtime. Qua
 
 As duas folhas 3×3 de bustos do page-mascot não substituem diretamente as quatro faixas de oito poses do ViraPets; direções do mouse não equivalem a humores do Claude. Não adicionamos React nem adaptamos hooks do terminal.
 
-## Primeira etapa
+## Marco histórico — primeira etapa
 
 `site/` oferece desenho procedural no Canvas, parâmetros de aparência, prévia animada e pacote ZIP com manifesto e quatro PNGs transparentes de 2048×256. A receita JSON permite reproduzir/editar o personagem. Sem API, chave, dependências remotas ou LLM durante criação, exportação e uso. O pacote entra no `deliver`/`build` existente. Arquivos dos três pets aprovados e hooks são preservados. Arte gerada por regras simples terá acabamento diferente da arte ilustrada aprovada.
 
 A página foi publicada e testada em https://daneiel.github.io/virapets/ (commit do site pessoal `89b2ad4`, Pages success). Foi publicada isoladamente em uma subpasta do Pages pessoal já habilitado. Fonte do plugin continua local para revisão; publicação da página não autoriza atualização da instalação nem push de mudanças do plugin. Conta GitHub verificada: daneiel. Em 19/10 o GitHub informa ViraPets público e sem Pages, apesar de notas antigas dizerem privado.
 
-## Próximas escolhas de produto
+## Escolhas levantadas no marco inicial
 
-1. Ampliar o editor por peças originais (espécies, corpo, orelhas, acessórios) preservando a receita e o pipeline — evolução natural desta etapa.
+1. **Parcialmente entregue:** 12 animais/26 combinações. Ampliar o editor por peças originais (espécies, corpo, orelhas, acessórios) preservando a receita e o pipeline — evolução natural desta etapa.
 2. Importar arte própria feita em editor externo e oferecer revisão/recorte dos quatro humores — maior liberdade, exige desenho manual.
 3. Adaptar direções e reações para mascotes web — formato/host adicional, separado do contrato atual de quatro humores.
 
-Não há conversão automática de foto em personagem nem criação livre por texto sem modelo. Editor livre e integração de cursor no terminal não estão implementados. Aprovação artística, instalação no Claude real e importação em aparelho Android são verificações distintas.
+No marco inicial não havia edição de foto. A versão publicada agora recorta, pixeliza, retoca e anima fotos, com segmentação local opcional. Geração de um novo personagem ilustrado por foto/texto e integração de cursor no terminal continuam fora do Studio. Aprovação artística, instalação no Claude real e importação em aparelho Android são verificações distintas.
 
-## Validação realizada
+## Validação histórica do marco inicial
 
 6 testes Node, 14 Python, 29 Claude 2.1.303 e validate aprovados. Browser Chromium/Playwright 1.60.0 em 1440 px e 390 px: zero erros, export ZIP e receita válidos, sem overflow horizontal. Importação de texto HTML permanece literal; JSON inválido preserva a receita anterior; movimento reduzido inicia pausado. ZIPs repetidos são idênticos. Download → deliver → validate → build: 32 quadros e 87 arquivos originais preservados por SHA-256. Evidências em docs/validation/procedural-*.json, public-browser-qa.json e roundtrip.json. Não houve instalação de novo pet no Claude real nem teste de Android.

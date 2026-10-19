@@ -16,14 +16,14 @@ Procedural output uses stylized silhouettes, not exact breed portraits. Birds an
 
 1. Select **Desenho procedural** in the inline mode switch. Choose an animal, its breed or type when available, then customize colors. Only the active mode’s tools are visible; switching preserves both editors.
 2. Set **Nome**, **ID do pacote** and **Seu nome / autor**. The ID becomes the pet's directory: start with a lowercase letter and use lowercase letters, digits and hyphens, up to 48 characters. Choose an unused ID before copying into a clone.
-3. Try **Feliz**, **Latindo**, **Esperando** and **Dormindo**. Use **Pausar animação** to examine the preview. Reduced-motion preference is respected.
+3. Try **Feliz**, **Latindo** (or **Chamando** for other animals), **Esperando** and **Dormindo**. Use **Pausar animação** to examine the preview. Reduced-motion preference is respected.
 4. Save a JSON recipe to resume later, or download ZIP for the local delivery pipeline.
 
 The page has light/dark themes using the BRABO semantic tokens, follows the system preference initially and remembers your theme choice. Its favicon is Jojo; that does not put Jojo's artwork into your exported pet.
 
 ## Photo: cut out, pixelize, mark the head and animate
 
-1. Select **Foto → pixel art local**. Choose a local PNG, JPEG or WebP, up to 10 MB and 40 megapixels. A working copy is reduced to a longest side of 768 pixels. **Testar com desenho de exemplo** creates a synthetic dog drawing if you want to try the tools without a personal photo.
+1. Select **Foto → pixel art local**. Choose a local PNG, JPEG or WebP, up to 10 MiB (the interface abbreviates this as 10 MB) and 40 megapixels. A working copy is reduced to a longest side of 768 pixels. **Testar com desenho de exemplo** creates a synthetic dog drawing if you want to try the tools without a personal photo.
 2. Refine the cutout. Green marks the area to keep. For a manual selection, choose **Pincel: manter** or **Pincel: apagar** and adjust brush size. **Manter tudo**, **Limpar máscara** and **Desfazer máscara** help restart or correct it; up to ten mask changes can be undone. Arrow keys move the canvas cursor and Enter applies the tool.
 3. Optionally activate **Ativar recorte assistido**. Place **Ponto no pet** points on the animal and **Ponto no fundo** points on unwanted background. A single point may preserve only one part: add points on both head and body, then correct with brushes. No model is needed for manual masking.
 4. Watch the live cutout preview, choose grid resolution **16–96**, palette **2–32 colors**, and optional outline. Click **Aplicar recorte e pixelizar** to make the final art. Pick an extracted color or **Cor de retoque** and paint; **Borracha** erases pixels. Reapplying the cutout replaces these retouches.
@@ -45,7 +45,7 @@ The runtime is served with the site. Model files are downloaded from Hugging Fac
 
 Save a recipe before leaving. Photo recipes contain the final derived 256×256 pixel art and normalized head marking, without the original photo, source filename, EXIF or editable mask. Importing lets you retouch and animate that art. To redo segmentation, select the source photo again. A recipe still contains a visible image of your pet: share it deliberately.
 
-See [third-party notices](https://daneiel.github.io/virapets/vendor/PHOTO-ML-NOTICES.txt), the pinned runtime and model revision described below and [implementation details](../docs/design/photo-editor-implementation.md).
+See [third-party notices](https://daneiel.github.io/virapets/vendor/PHOTO-ML-NOTICES.txt), the pinned revision in [implementation details](../docs/design/photo-editor-implementation.md), and the [consolidated published feature guide in Portuguese](../docs/design/studio-published.md).
 
 ## Prompt: use your preferred image platform
 
@@ -115,19 +115,17 @@ Keep one ViraPets installation active; see [installation and migration](../READM
 
 ## Local development, validation and publication
 
-From the repository root:
+The Studio files are published in the personal Pages repository. The plugin repository contains its Python pipeline and guides; its `site/` directory does not contain the complete runnable website. To serve the public website locally:
 
 ```sh
-python3 -m http.server 8000 --directory site
-node site/core.test.cjs
-node site/photo-core.test.cjs
-node site/photo-sam.test.cjs
-node site/stickers.test.cjs
+git clone https://github.com/daneiel/daneiel.github.io.git virapets-site
+cd virapets-site
+python3 -m http.server 8000
 ```
 
-Open `http://localhost:8000`. The procedural scripts also work when opening `index.html` directly; use HTTP for the photo Worker/model. `pet-core.js` exposes browser `PetCore` and CommonJS for Node tests. `app.js` connects editor and exporters; photo core/editor/client/Worker files separate pixel processing, UI and optional model loading. Python/Pillow is needed for delivery integration, not browser editing.
+Open `http://localhost:8000/virapets/`. Use HTTP for the photo Worker/model. Python is only a convenient server here, not a visitor requirement. Public JS modules are in `virapets/`; the model notices are distributed with them.
 
-Browser evidence is recorded under [validation](../docs/validation/) and the [photo implementation report](../docs/design/photo-editor-implementation.md). Desktop tests at narrow and wide viewports are viewport checks, not physical-phone tests. Firefox, Safari, physical mobile devices and Android sticker import remain separate validation work; do not infer them from desktop Chromium results.
+The development checkout also retains Node unit tests and a Playwright mode-regression script; these are not all shipped in the public plugin checkout. Do not run missing `site/*.test.cjs` files from that checkout. Recorded [public browser evidence](../docs/validation/mode-regression-public.json) covers the published layout. The [Portuguese published guide](../docs/design/studio-published.md#evidências-e-limites-reais) separates current and historical validation. Desktop viewports are not physical-phone tests; Firefox, Safari, real devices and Android sticker import remain untested.
 
 The published files live in `virapets/` of [daneiel/daneiel.github.io](https://github.com/daneiel/daneiel.github.io/tree/main/virapets). GitHub Pages serves that repository's `main` root. Editing this ViraPets repository does not automatically publish the personal site. A reviewed publication must copy all referenced static resources, including themes, favicon, prompt, photo modules, Worker, vendor runtime and notices, keeping relative paths intact, then verify the Pages deployment and public URL. There is no cross-repository synchronization workflow. Roll back by reverting the publication commit in the site repository; preserve its root page. Publishing the static page does not publish plugin commits.
 
@@ -136,4 +134,4 @@ The published files live in `virapets/` of [daneiel/daneiel.github.io](https://g
 
 The creator stays open inline on the page with a visible mode selector. The entire procedural section, including its instructions, is hidden and inert in photo mode. The same shared preview/export node moves inside the photo editor once pixel art exists; no empty Pingo card or export form appears below an unfinished photo. Recipe import remains available above both modes. Switching preserves the photo, mask, head marker and procedural configuration. The page has no editor dialog or focus trap. The theme button in the header uses a sun/moon icon, action text and an accessible name. Object mode prefers a broader credible SAM candidate; detail mode prefers score. Positive/negative points remain spatial prompts, with add/subtract area operations and manual brush fallback. Pet/background inverse selection, color/transparent fill, grow/shrink/smooth and mask undo/redo run locally. The source photo is never modified.
 
-Cutout preview interpolates motion; animated stickers use32frames per mood, while PNG strips retain8. Head marking follows transformed final-art coordinates. Effects are baked into photo PNGs with null sleepSigns to avoid duplication; head guides are never exported.
+Cutout preview interpolates motion; animated stickers use 32 frames per mood, while PNG strips retain 8. Head marking follows transformed final-art coordinates. Effects are baked into photo PNGs with null sleepSigns to avoid duplication; head guides are never exported.

@@ -1,0 +1,257 @@
+{
+  "date": "2026-10-19",
+  "siteCommit": "a0926dad4fb0dd180adad9cd08e62bf420e91aa1",
+  "pagesRun": 39254942321,
+  "pagesConclusion": "success",
+  "readmeCommit": "23305c5",
+  "nodeTests": 40,
+  "species": {
+    "url": "https://daneiel.github.io/virapets/",
+    "species": [
+      {
+        "id": "dog",
+        "varieties": 5
+      },
+      {
+        "id": "cat",
+        "varieties": 3
+      },
+      {
+        "id": "duck",
+        "varieties": 1
+      },
+      {
+        "id": "chicken",
+        "varieties": 1
+      },
+      {
+        "id": "chick",
+        "varieties": 1
+      },
+      {
+        "id": "rabbit",
+        "varieties": 3
+      },
+      {
+        "id": "cow",
+        "varieties": 3
+      },
+      {
+        "id": "ox",
+        "varieties": 1
+      },
+      {
+        "id": "llama",
+        "varieties": 1
+      },
+      {
+        "id": "camel",
+        "varieties": 1
+      },
+      {
+        "id": "bird",
+        "varieties": 3
+      },
+      {
+        "id": "lizard",
+        "varieties": 3
+      }
+    ],
+    "uniqueRenders": 26,
+    "inline": true,
+    "statePreserved": true,
+    "legacyRecipe": true,
+    "newRecipe": true,
+    "themeIcons": true,
+    "themeKeyboard": true,
+    "themePersistence": true,
+    "viewports": [
+      1440,
+      390
+    ],
+    "physicalDevices": false,
+    "errors": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-inline.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-inline.js"
+      }
+    ]
+  },
+  "motion": {
+    "url": "https://daneiel.github.io/virapets/",
+    "errors": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-inline.js"
+      }
+    ],
+    "head1": {
+      "x": 0.5,
+      "y": 0.3515625,
+      "radius": 0.2734375,
+      "side": "auto"
+    },
+    "head2": {
+      "x": 0.7239060401916504,
+      "y": 0.24390125274658203,
+      "radius": 0.125,
+      "side": "left"
+    },
+    "edgeAnchors": true,
+    "headRecipeRoundtrip": true,
+    "headResetAfterRecrop": true,
+    "simulation": true,
+    "pause": true,
+    "widths": [
+      1440,
+      390
+    ],
+    "physicalDevice": false,
+    "photoOrModelUpload": false
+  },
+  "zipValidation": "Pillow: four RGBA 2048x256 strips and 32 nonempty frames; cat/persa manifest",
+  "pipeline": "deliver, validate, build passed in /tmp/virapets-species-roundtrip; Raster48x26,32frames",
+  "limitations": [
+    "No physical mobile device",
+    "No real WhatsApp import",
+    "Stylized procedural representations; no breed fidelity claim"
+  ]
+}

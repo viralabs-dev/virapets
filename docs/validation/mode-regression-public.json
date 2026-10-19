@@ -1,0 +1,476 @@
+{
+  "date": "2026-10-19",
+  "baselineSiteCommit": "a0926dad4fb0dd180adad9cd08e62bf420e91aa1",
+  "siteCommit": "d61fdfbb0d89c2258b7f6989172ad04f164535a3",
+  "pagesRun": 39257004280,
+  "pagesConclusion": "success",
+  "documentationCommit": "7f44b0f",
+  "cause": "studio and how siblings outside photo editor were never hidden; canvas alone cleared when photo lacked art. No CSS hidden override, no duplicate studio, no cache attribution.",
+  "before": {
+    "mode": true,
+    "art": false,
+    "studio": {
+      "display": "grid",
+      "hidden": false,
+      "inert": false,
+      "parent": "studio-view"
+    },
+    "species": {
+      "display": "none",
+      "hidden": true
+    },
+    "photo": false,
+    "dialogs": 0,
+    "photoTitle": "Prévia e exportação da foto",
+    "exportButtonVisible": true,
+    "howDisplay": "grid"
+  },
+  "public": {
+    "url": "https://daneiel.github.io/virapets/",
+    "results": [
+      {
+        "width": 1440,
+        "initial": {
+          "mode": false,
+          "art": false,
+          "procedural": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": ""
+          },
+          "studio": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "procedural-editor"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": false
+        },
+        "empty": {
+          "mode": true,
+          "art": false,
+          "procedural": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studio": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "photo-output"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": false,
+            "rects": 0,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": true
+        },
+        "ready": {
+          "mode": true,
+          "art": true,
+          "procedural": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studio": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "photo-output"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": false,
+            "rects": 0,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": true
+        },
+        "statePreserved": true,
+        "maskAndHeadPreserved": true,
+        "photoRecipeImport": true,
+        "legacyRecipeImport": true,
+        "replacementHidesOutput": true,
+        "keyboardNoInactiveFocus": true,
+        "noHorizontalOverflow": true,
+        "errors": []
+      },
+      {
+        "width": 390,
+        "initial": {
+          "mode": false,
+          "art": false,
+          "procedural": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": ""
+          },
+          "studio": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "procedural-editor"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": false
+        },
+        "empty": {
+          "mode": true,
+          "art": false,
+          "procedural": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studio": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "photo-output"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": false,
+            "rects": 0,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": true
+        },
+        "ready": {
+          "mode": true,
+          "art": true,
+          "procedural": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "studio-view"
+          },
+          "photo": {
+            "display": "block",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studio": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": "photo-output"
+          },
+          "how": {
+            "display": "grid",
+            "hidden": false,
+            "inert": false,
+            "visible": false,
+            "rects": 0,
+            "parent": "procedural-editor"
+          },
+          "species": {
+            "display": "none",
+            "hidden": true,
+            "inert": true,
+            "visible": false,
+            "rects": 0,
+            "parent": "ref: <Node>"
+          },
+          "importer": {
+            "display": "flex",
+            "hidden": false,
+            "inert": false,
+            "visible": true,
+            "rects": 1,
+            "parent": ""
+          },
+          "studioCount": 1,
+          "formCount": 1,
+          "dialogs": 0,
+          "photoContainsOutput": true
+        },
+        "statePreserved": true,
+        "maskAndHeadPreserved": true,
+        "photoRecipeImport": true,
+        "legacyRecipeImport": true,
+        "replacementHidesOutput": true,
+        "keyboardNoInactiveFocus": true,
+        "noHorizontalOverflow": true,
+        "errors": []
+      }
+    ],
+    "physicalDevice": false
+  },
+  "motionRegression": {
+    "url": "https://daneiel.github.io/virapets/",
+    "errors": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-inline.js"
+      }
+    ],
+    "head1": {
+      "x": 0.5,
+      "y": 0.3515625,
+      "radius": 0.2734375,
+      "side": "auto"
+    },
+    "head2": {
+      "x": 0.7239060401916504,
+      "y": 0.24390125274658203,
+      "radius": 0.125,
+      "side": "left"
+    },
+    "edgeAnchors": true,
+    "headRecipeRoundtrip": true,
+    "headResetAfterRecrop": true,
+    "simulation": true,
+    "pause": true,
+    "widths": [
+      1440,
+      390
+    ],
+    "physicalDevice": false,
+    "photoOrModelUpload": false
+  },
+  "exportCheck": "Both1440/390 photo ZIPs have photo description, null sleepSigns, recipe/head and four RGBA2048x256 strips; Pillow passed",
+  "unitFilesPassed": 6,
+  "individualNodeTests": 40,
+  "limitations": [
+    "Chromium desktop and mobile viewport, no physical phone",
+    "No real WhatsApp import"
+  ]
+}

@@ -1,34 +1,37 @@
-# Recorte fluido, cabeça e seleção em painel aberto
+# Recorte fluido, cabeça e seleção no editor inline
 
-AT-021/AT-022,19/10/2026. Continuação autorizada do Studio publicado para testar. Nenhuma alteração em arte/modelos existentes, hooks ou instalação; nenhuma integração externa de geração.
+Estado publicado em 19/10/2026: [`d61fdfb`](https://github.com/daneiel/daneiel.github.io/commit/d61fdfbb0d89c2258b7f6989172ad04f164535a3). Consulte o [guia completo do Studio](studio-published.md) e a [arquitetura fotográfica](photo-editor-implementation.md).
 
-## Animação e cabeça
+## Movimento e cabeça
 
-Prévia usa fase temporal contínua sobre os tempos do ViraPets, com interpolação cossenoidal entre oito poses próprias por humor: balanço feliz, preparação/impulso/recuo do latido, respiração de espera e cochilo/despertar/retorno. Pausa e movimento reduzido permanecem. A foto não ganha olhos/boca novos e não há som.
+A prévia usa fase temporal contínua nos tempos ViraPets e interpolação cossenoidal entre oito poses de cada humor: balanço feliz, preparação/impulso/recuo do latido, respiração de espera e cochilo/despertar/retorno. Pausa e preferência de movimento reduzido são respeitadas. A transformação do recorte não desenha novas expressões e não produz áudio.
 
-Após pixelizar, a pessoa marca o centro da cabeça na **arte final256×256**, ajusta raio8–100px e ladoauto/esquerda/direita. Coordenadas/radio são normalizados na receita e transformados com a mesma escala/rotação/translação do recorte. Como a marca acontece depois da orientação/crop/resize, não usa coordenadas antigas da foto. Refazerpixelização limpa a marca; a exportação pede nova identificação. Guia circular fica emcanvas separado e nunca nos arquivos. Efeitos mudam de lado nas bordas e mantêm pixels dentro da célula.
+Depois de pixelizar, marque o centro da cabeça na arte final 256×256; ajuste raio de 8–100 pixels e lado automático/esquerdo/direito. Centro e raio normalizados acompanham escala/rotação/translação. Não dependem das coordenadas anteriores da foto. Refazer a pixelização limpa a marca. O guia circular é outro canvas e não entra na exportação.
 
-Zzz sobem/desaparecem suavemente durante o sono e não aparecem nas fases4/5 do despertar. Traços de som pulsam no impulso do latido. PNGsfoto8quadros já incluem efeitos e manifestos usam sleepSignsnull para não duplicar. Novo lilás#cdb8f6 é visualmente adjacente ao legado#cdb7f6, evitando remoção pelo pipeline terminal que reserva a cor antiga. Procedural e pets originais não mudam. Figurinhasfoto usam32quadros porhumor (4subdivisões), tempos arredondados cumulativamente a10ms, mínimos>=8ms e limite500KB. Fotografias com alta complexidade podem exigir reduzir paleta/resolução para caber. Preview contínuo não muda o contrato8quadros dosPNG.
+Zzz sobem e desaparecem no sono, sem aparecer nos quadros 4/5 do despertar. Os raios pulsam no impulso do latido. Nas bordas, os efeitos ajustam o lado e permanecem dentro da célula. PNGs fotográficos incorporam efeitos uma vez e usam `sleepSigns` com entradas `null`; o lilás `#cdb8f6` evita o tratamento reservado do legado `#cdb7f6` no pipeline. Pets originais permanecem preservados.
 
-BotãoSimular usa a arte atual e a cabeça marcada; outro oferece exemplo sintético quando não há arte. Se há arte, preserva as edições e simula a atual. Não carrega SlimSAM. Demonstração e GIF deQA usam o mesmo renderizador; modelo/foto privada não são necessários.
+A prévia é contínua; PNGs mantêm oito células por humor. Figurinhas fotográficas usam 32 quadros por humor, com tempos arredondados cumulativamente em unidades de 10 ms e limite de 500.000 bytes por WebP. Arte complexa pode exigir paleta/resolução menores. Procedural mantém oito quadros por figurinha.
 
-## Seleção local
+A simulação usa a arte atual e sua cabeça marcada. Se não houver arte, o exemplo sintético pode ser criado localmente; isso não carrega SlimSAM. O [GIF de demonstração](https://daneiel.github.io/virapets/motion-demo.gif) é uma simulação com desenho sintético, não uma foto real de um usuário.
 
-SlimSAM preserva múltiplos pontos positivos/negativos. ModoObjeto prefere máscara mais ampla entre candidatos com score>=0.5 e até0.15 abaixo do melhor válido; Detalhe escolhe maior score. Todo candidato precisa respeitar os pontos informados. Scores não são garantia de precisão; erro útil permite novos pontos/detalhe/pincel. Adicionar/remover áreas combina nova seleção com uma base preservada; permite partes desconectadas sem trocar o modelo por segmentador de pessoas. Não há caixa nesta versão; pontos e pincéis são controles efetivamente entregues.
+## Seleção e correção
 
-Máscara interna representa pet; alternarPet/Fundo mostra o complemento e aplica pincel/refino à área escolhida, preservando a seleção lógica. Grow/shrink por disco e maioria local (raio1–4) refinam bordas. Histórico até10máscaras, desfazer/refazer, sem editar pixels dafoto original. Fundo final transparente ou preenchido comcor é calculado numa cópia ao aplicar pixelização. Trocar para transparente restaura resultado semcor; original permanece em memória intacto. Não prometer pelo perfeito nem seleção automática de qualquer objeto.
+SlimSAM preserva múltiplos pontos positivos e negativos. Objeto inteiro prefere uma máscara mais ampla entre candidatos com score ≥0,5 e até 0,15 abaixo do melhor válido; detalhe escolhe o maior score. Os pontos precisam ser respeitados. O score não garante precisão: corrija com novos pontos, detalhe ou pincéis. Não há seleção por caixa nesta versão.
 
-## Painel aberto e estado
+Substituir/adicionar/remover combina a nova seleção com uma base, permitindo áreas desconectadas. A máscara interna representa o pet; Fundo exibe o complemento e aplica pincel/refino à área escolhida. Expandir/contrair usa vizinhança em disco; suavizar usa maioria local, com raio 1–4. Há histórico de até dez máscaras com desfazer/refazer.
 
-Revisão de 19/10: por pedido do dono, o editor voltou ao layout aberto inline. O seletor permanece visível; foto e controles procedurais são ocultados e inertes conforme o modo ativo. Os mesmos nós mantêm foto/máscara/cabeça/receita/configuração na alternância. Prévia e exportações seguem o modo ativo. Não há dialog nem contenção de foco. Tema no cabeçalho com sol/lua e nome acessível; layout móvel sem rolagem horizontal.
+O preenchimento por cor é calculado numa cópia ao aplicar; escolher transparente e reaplicar restaura a saída sem esse preenchimento. A foto de trabalho original não é pintada. Pelos e detalhes pequenos podem precisar de correção manual.
 
-## Verificação e limites
+## Composição dos modos e regressão corrigida
 
-Relatórios docs/validation/cutout-motion-selection.json e -public.json registram resultados reais. Testes unitários cobrem continuidade/limites/tempos/âncoras e máscarasdisjuntas/inversão/morfologia/escolhaObjeto. QAChromium usa exemplo sintético, modelo local real e apenasGETs de arquivos; nenhum upload. Head nos cantos, roundtripJSON, nova marca apósrecrop,32framesWebP e ausênciaZzzno despertar conferidos. Viewports390/1440 e teclado não equivalem aAndroid/iOS/Firefox/Safarireais. Sem importaçãoAndroid, som ou paridade de expressão/arte com Jojo/Mel/Dara.
+A primeira versão inline ocultava só campos específicos, deixando `.studio` e `.how` fora do painel da foto. Sem arte, o canvas era limpo, mas o card Pingo e as exportações continuavam abaixo. A investigação pública confirmou `hidden=false` e `display=grid` no bloco; não havia CSS sobrescrevendo hidden ou duas instâncias. O QA anterior verificava campos e não a composição completa.
 
+Na versão publicada, `#procedural-editor` engloba o destino procedural e instruções, ficando oculto/inert em foto. O mesmo `.studio` se move para `#photo-output`, dentro do editor fotográfico, sem clonar nós ou listeners; só aparece com arte pronta. O importador JSON compartilhado permanece acima dos painéis. Foto, máscara, cabeça, receita e configurações sobrevivem à alternância. Não há modal ou contenção de foco. Sol/lua e nome acessível identificam a troca de tema no cabeçalho.
 
-## Regressão de composição corrigida em 19/10
+## Evidência atual e histórica
 
-O retorno inline ocultava campos específicos mas deixava `.studio` como irmão de `#photo-editor` e `.how` visível; foto sem arte limpava apenas o canvas e mantinha Pingo/metadados/exportações vazios. Não foi cache ou CSS sobrescrevendo hidden: o bloco não recebia hidden. O QA anterior só verificava espécie/paleta e perdeu a composição completa.
+[Relatório final público](../validation/mode-regression-public.json): desktop 1440 e viewport móvel 390, display computado, retângulos, `hidden`/`inert`, foco, ancestralidade, uma prévia/formulário, foto vazia/pronta/descartada/trocada, receitas e exportações. [Captura sem arte](../images/mode-photo-empty-1440.png) e [captura com arte](../images/mode-photo-ready-1440.png).
 
-`#procedural-editor` agora engloba o destino procedural e instruções; hidden/inert no modo foto. O mesmo `.studio` é movido para `#photo-output` dentro da foto, sem clonar listeners ou estado, e só aparece se hasArt. Importador compartilhado acima dos painéis recupera receitas mesmo em foto vazia. Teste de navegador verifica ancestralidade, unicidade, display computado, retângulos, foco, estado, importação e exportações em desktop/mobile.
+[Relatório anterior de movimento/seleção](../validation/cutout-public.json): cabeças nas bordas, receitas, reaplicação, Zzz ausentes ao despertar e WebPs. O modelo real foi verificado com pontos e requisições GET de arquivos, sem upload. [Relatório de espécies/tema](../validation/species-inline-public.json). Não extrapolar esses testes para aparelhos físicos, Safari/Firefox ou importação real Android.
+
+O checkout de desenvolvimento guarda `tools/site-qa/mode-regression.cjs` para repetir o teste com Playwright e `QA_URL`. Esse arquivo e todos os testes unitários não são distribuídos automaticamente no clone público do plugin. Para servir os arquivos públicos do Studio, use o [procedimento correto](../../site/README.md#local-development-validation-and-publication).

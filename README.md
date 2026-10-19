@@ -136,15 +136,15 @@ tests/                     testes no motor Claude Code
 
 ## Crie no navegador: três caminhos
 
-Abra o [ViraPets Studio](https://daneiel.github.io/virapets/). Para desenvolvimento local, na raiz do clone execute `python3 -m http.server 8000 --directory site` e abra `http://localhost:8000`. Python é apenas o servidor nesse caso; o visitante da página publicada não precisa instalá-lo. Use HTTP para o Worker de recorte assistido; abrir `site/index.html` diretamente pode servir ao desenho procedural, mas não é o caminho recomendado para foto/modelo.
+Abra o [ViraPets Studio](https://daneiel.github.io/virapets/). O visitante não precisa de Python, conta ou chave de API. Veja o [guia consolidado da versão publicada](docs/design/studio-published.md), com todas as opções, capturas e limites. Os [arquivos estáticos do site](https://github.com/daneiel/daneiel.github.io/tree/main/virapets) estão no repositório pessoal; o repositório do plugin mantém o pipeline e a documentação. Para servir o site localmente, siga o [guia do Studio](site/README.md#local-development-validation-and-publication).
 
 ### 1. Desenho procedural, sem modelo
 
-Escolha **Desenho procedural**, altere nome, ID, autor, cores de pelagem/focinho/lenço e orelhas. Um ID como `luna` vira o nome da pasta do pet: use minúsculas, números e hífens, começando por letra, e não sobrescreva um pet existente. Troque entre Feliz, Latindo, Esperando e Dormindo; pause quando quiser examinar um quadro. A arte é geométrica e simples, não uma reprodução de Jojo, Mel ou Dara. Não há geração livre por texto nessa opção.
+Escolha **Desenho procedural**, depois animal e raça/variedade ou tipo. São 12 animais e 26 combinações; consulte o [catálogo completo](docs/design/studio-published.md#12-animais-26-combinações). Personalize nome, ID, autor e cores de corpo/detalhes/acessório; cães também têm controle de orelhas. Um ID como `luna` vira o nome da pasta do pet: use minúsculas, números e hífens, começando por letra, e não sobrescreva um pet existente. Troque entre Feliz, Latindo (ou Chamando para outros animais), Esperando e Dormindo; pause quando quiser examinar um quadro. A arte é geométrica e simples, não uma reprodução de Jojo, Mel ou Dara. Não há geração livre por texto nessa opção.
 
 ### 2. Foto → pixel art local
 
-1. O criador fica **aberto na página**, com seletor visível e somente o painel do modo ativo. No modo foto, o bloco procedural inteiro fica oculto; a prévia e a exportação aparecem dentro do editor somente depois de pixelizar. A importação de receita permanece acessível acima dos modos. Alterne sem perder a foto, a máscara, a cabeça marcada ou as configurações. Escolha esse modo e carregue PNG, JPEG ou WebP de até 10 MB/40 megapixels, ou use **Testar com desenho de exemplo**, que cria uma imagem sintética sem foto privada.
+1. O criador fica **aberto na página**, com seletor visível e somente o painel do modo ativo. No modo foto, o bloco procedural inteiro fica oculto; a prévia e a exportação aparecem dentro do editor somente depois de pixelizar. A importação de receita permanece acessível acima dos modos. Alterne sem perder a foto, a máscara, a cabeça marcada ou as configurações. Escolha esse modo e carregue PNG, JPEG ou WebP de até 10 MiB (a interface abrevia como 10 MB)/40 megapixels, ou use **Testar com desenho de exemplo**, que cria uma imagem sintética sem foto privada.
 2. Recorte o pet. Sem modelo, use **Pincel: manter/apagar**, tamanho do pincel, **Manter tudo**, **Limpar máscara** e **Desfazer máscara**. A área verde é preservada. Com o recorte assistido ativado, marque pontos no pet para incluir e no fundo para excluir; acrescente pontos na cabeça e no corpo se apenas uma parte for selecionada. As setas e Enter também controlam seleção e retoque.
 3. Confira a prévia contínua do recorte e ajuste grade de 16–96 e paleta de 2–32 cores, com contorno opcional. Clique **Aplicar recorte e pixelizar** para criar a arte final. Escolha uma cor extraída ou uma cor de retoque e pinte; a borracha remove pixels. Aplicar o recorte novamente substitui os retoques.
 4. Marque o centro da cabeça na pixel art final e ajuste seu tamanho (8–100) e lado do focinho (automático/esquerda/direita). A marca é obrigatória antes de exportar e pode ser ajustada depois; reaplicar o recorte a reinicia. A animação usa essa referência para posicionar traços de latido e Zzz acompanhando o movimento. No sono, os quadros 4 e 5 do despertar ficam sem Zzz. A simulação permite conferir a arte existente ou experimentar o desenho sintético sem baixar o modelo.
@@ -178,7 +178,7 @@ Clique **Ver e copiar prompt**, copie o texto completo e envie com a foto na pla
 
 Os quatro PNGs do modo foto já incluem seus efeitos de latido/sono, e `sleepSigns` vem com itens `null` para evitar Zzz duplicado pelo pipeline. O modo procedural mantém seus sinais compostos pelo pipeline. Confira o README do pacote antes de editar o manifesto.
 
-A exportação de figurinhas exige suporte Canvas WebP no navegador; se falhar, PNG, ZIP e receita continuam disponíveis. Para gerar e validar GIFs/figurinhas localmente, use o pipeline Python abaixo. A importação Android depende do aplicativo e ainda não foi testada em aparelho físico. Testes em viewport estreita no desktop não comprovam compatibilidade em telefone. O editor oferece tema claro/escuro baseado nos tokens BRABO e favicon do Jojo; esses elementos não alteram os arquivos do pet.
+A exportação de figurinhas exige suporte Canvas WebP no navegador; se falhar, PNG, ZIP e receita continuam disponíveis. Para gerar e validar GIFs/figurinhas localmente, use o pipeline Python abaixo. A importação Android depende do aplicativo e ainda não foi testada em aparelho físico. Testes em viewport estreita no desktop não comprovam compatibilidade em telefone. O editor oferece tema claro/escuro com botão sol/lua no topo, texto de ação, tooltip, teclado e preferência salva, baseado nos tokens BRABO, além do favicon do Jojo; esses elementos não alteram os arquivos do pet.
 
 [Guia do editor e solução de problemas](site/README.md) · [Análise do modo procedural](docs/design/characters-without-llm.md) · [Arquitetura da foto local](docs/design/photo-editor-implementation.md).
 
@@ -203,7 +203,7 @@ python -m pip install -r tools/requirements.txt
 python tools/pets.py new --pet luna --name "Luna" --author "Seu nome"
 ```
 
-O exemplo usa `luna`; escolha um identificador livre, em minúsculas, sem espaços. Os repositórios atualmente são privados: quem for seguir o fluxo precisa de acesso concedido pela ViraLabs. Não é preciso chave de API no projeto: as imagens podem ser geradas e baixadas manualmente.
+O exemplo usa `luna`; escolha um identificador livre, em minúsculas, sem espaços. O repositório ViraPets está público; você pode cloná-lo pelo endereço acima. Não é preciso chave de API no projeto: as imagens podem ser geradas e baixadas manualmente.
 
 ### 2. Gere e salve as quatro faixas
 

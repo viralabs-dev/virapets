@@ -1,32 +1,78 @@
-# Editor de foto local — primeira versão
+# Arquitetura do editor fotográfico local
 
-AT-019,19/10/2026. Daniel autorizou implementar e publicar para testar. O modo procedural, prompt, temasBRABO, faviconJojo e exportadores existentes são preservados. Nenhum serviçoGradio/Prodia/freellmapi foi integrado.
+Estado atual: [Studio publicado em d61fdfb](studio-published.md), conferido em 19/10/2026. O editor transforma uma foto local em recorte pixelizado animado. Não usa LLM, serviço de geração, Gradio, Prodia ou freellmapi. SlimSAM é um modelo de segmentação opcional executado localmente, não um gerador de personagens.
 
-## Produto e limites
+## Componentes e fluxo
 
-Modo “Foto → pixel art local”: selecionaPNG/JPEG/WebPaté10MiB/40MP; decodifica orientação e reduz cópia a768px de lado maior. A foto fica em memória, sem nome/EXIF na receita. A máscara inicia com todos os pixels visíveis; usuário escolhe recorte assistido por pontospositivos/negativos ou pincel manter/apagar, desfaz até10máscaras. Setas/Enter permitem seleção e retoque pelo teclado. Pixelização determinística: recorta bbox da máscara, quantiza paleta2–32cores, grade16–96, contornoopcional e margens transparentes. RetoqueCanvas porcor/borracha. Usar “Aplicar” novamente substitui retoques pela nova pixelização.
+```mermaid
+flowchart LR
+  A[Foto local] --> B[Cópia reduzida e máscara]
+  B --> C[Pincéis e refino]
+  B --> D[Worker SlimSAM opcional]
+  D --> C
+  C --> E[Pixelização e retoque]
+  E --> F[Cabeça na arte final]
+  F --> G[Prévia e efeitos]
+  G --> H[PNG ZIP JSON WebP]
+```
 
-Isso é recorte de foto pixelizado com movimentos simples de translação/rotação/escala. Não cria olhos/bocas novos nem redesenha expressões; quatro grupos de movimento têm oito poses distintas, mas não equivalem aos humores ilustradosJojo/Mel/Dara. Um clique pode selecionar só uma parte do animal: acrescentar pontos emoutraspartes e excluirfundo, ou corrigir manualmente. Limite128pontos. Não existe garantia de seleção perfeita de pelos, identidade ou acabamento artístico. Assets atuais intactos.
+Os arquivos estáticos publicados estão em [daneiel.github.io/virapets](https://github.com/daneiel/daneiel.github.io/tree/d61fdfbb0d89c2258b7f6989172ad04f164535a3/virapets). O repositório do plugin contém o pipeline Python e a documentação; não contém automaticamente todos os commits de desenvolvimento do site.
+
+| Componente | Responsabilidade |
+|---|---|
+| `photo-editor.js` | Imagem em memória, pontos, máscara/histórico, ferramentas, retoques, cabeça e receita |
+| `photo-mask.js` | Inversão, combinação e refino de máscaras sem alterar os arrays de entrada |
+| `photo-core.js` | Quantização determinística, transformação contínua do recorte e efeitos ancorados |
+| `photo-sam-client.js` / `photo-sam-worker.js` | Carregamento sob demanda, protocolo serializado, inferência e cancelamento |
+| `mode-inline.js` | Composição dos painéis, ocultação/inert, única prévia no destino ativo |
+| `app.js` / `stickers.js` | Prévia, simulação e exportações; captura estável de arte antes da montagem |
+| `pet-core.js` | Catálogo procedural e contrato comum dos quatro humores, receita e ZIP |
+
+## Imagem, seleção e arte
+
+PNG/JPEG/WebP de até 10 MiB e 40 MP é decodificado e reduzido a até 768 px de lado maior. A máscara começa com pixels visíveis; há até 128 pontos e histórico de até dez alterações. Pontos positivos/negativos podem ser corrigidos por pincéis. Objeto inteiro prefere um candidato mais amplo com score aceitável e compatível com os pontos; detalhe prefere o maior score. Adicionar/remover combina a próxima seleção com a base. Pet/Fundo mostra a seleção ou seu complemento; expandir/contrair/suavizar trabalha com raio 1–4.
+
+A pixelização recorta os limites da máscara, quantiza de 2–32 cores, usa grade 16–96, contorno opcional e margem transparente. Fundo colorido é aplicado em uma cópia. Os pixels originais não são pintados pelas ferramentas de máscara ou fundo. Aplicar novamente substitui os retoques da arte.
+
+A cabeça é marcada na arte final 256×256; centro e raio são normalizados e transformados junto com a arte. Reaplicar o recorte limpa essa marca. Raios de latido e Zzz seguem a cabeça, ajustam o lado nas bordas e não são o guia circular de edição. A prévia interpola oito poses; Zzz não aparecem no despertar 4/5. O recorte não ganha expressões novas nem áudio.
+
+## Composição inline e estado
+
+`#procedural-editor` contém o destino procedural e suas instruções, ficando hidden/inert em foto. O mesmo nó `.studio` se move para `#photo-output`, dentro do editor fotográfico. Ele inteiro fica oculto/inert enquanto não há arte pronta. A importação JSON permanece acima dos painéis. Não há modal, clone de formulário ou listeners duplicados. Os nós e o estado de foto/máscara/cabeça/configuração são preservados na alternância.
+
+Isso corrige a regressão anterior: ocultar apenas os campos procedurais deixava o card Pingo vazio e exportações abaixo da foto. O [relatório final](../validation/mode-regression-public.json) registra display computado, espaço ocupado, foco, ancestralidade e unicidade em desktop/mobile.
 
 ## Modelo, rede e cache
 
-Carregador oficial `@huggingface/transformers`3.8.1,ONNXRuntimeWASMCPU emWorker módulo, singlethread, sem exigirWebGPU. SlimSAMq8 oficial `Xenova/slimsam-77-uniform`, revisão5850ab45f587c112167512ffef949107115e26a0. Pesos/configuração13.786.820bytes; runtimeJS/WASM22.528.676; soma36.315.496bytes não comprimidos. A página informa antes da ativação; pequenosarquivos da própria página não integram essa soma. Manifesto comarquivos/hashruntime emtools/site-ml/manifest.json. Runtimevendorizado, pesos remotosHF somente quando ovisitante escolhe o recurso; nodependência de instalação manual do visitante, token ouAPIdeinferência. Build/arquivosoficiais/licenças emtools/site-ml e aviso distribuído emsite/vendor/PHOTO-ML-NOTICES.txt.
+Runtime oficial `@huggingface/transformers` 3.8.1; ONNX Runtime WASM CPU em Worker módulo, single thread, sem exigir WebGPU. Modelo SlimSAM q8 `Xenova/slimsam-77-uniform`, revisão `5850ab45f587c112167512ffef949107115e26a0`.
 
-Rede observada deve conter somenteGET: scripts/WASMlocais e pesos/configuraçõesHF e seusCDNs. Foto não é argumento de fetch/requisições; pixels seguempostMessage aoWorker no próprio processo dobrowser. Sem analítica ou transmissão deconteúdo. Download revelaIP/metadados derequisição ao host/CDN, não a foto. Não prometer operaçãooffline na primeira visita ou disponibilidade ilimitada dosdownloads.
+| Download inicial não comprimido | Bytes |
+|---|---:|
+| Pesos e configuração | 13.786.820 |
+| Runtime JS/WASM | 22.528.676 |
+| Total de referência | **36.315.496** |
 
-Embeddings reutilizados para novos pontos da mesma imagem. CacheAPI específico`virapets-slimsam-<revision>` guarda somente arquivos remotos do modelo; sem foto/embeddings. Botão cancela/liberaWorker; outro apaga apenas essecache. Cachepodefalhar/ser removido: fluxo continua semcache e mostraerro se download falhar. Modelo indisponível mantém foto/edição e permite máscara manual ouprompt. Cancelamento não altera foto; receita e arte só saem por download deliberado. Trocar/recarregar página perde originais, salvoexportmanual da pixelart.
+Arquivos pequenos da página não estão nessa soma; compressão/cache podem reduzir tráfego. O runtime vem do site; pesos/configuração vêm do Hugging Face/CDNs somente após ativação. Requisições de arquivos expõem IP e metadados normais aos hosts. Pixels seguem para o Worker local por `postMessage`, sem upload ou API de inferência. Embeddings são reutilizados para pontos da mesma imagem.
+
+O cache específico `virapets-slimsam-<revision>` guarda arquivos do modelo, não fotos ou embeddings. Cancelar/liberar encerra o Worker; limpar cache remove os pesos armazenados. Se o cache ou download falhar, a pessoa pode continuar com pincéis. Não prometer primeira visita offline, consumo fixo de RAM ou desempenho universal. [Licenças e avisos distribuídos](https://daneiel.github.io/virapets/vendor/PHOTO-ML-NOTICES.txt).
 
 ## Exportação e compatibilidade
 
-Mesmosbotões exportam PNG2048×256,4faixas+pet.json+recipe.json+README noZIP,JSONreceita e quatroWebP512×512 em.wastickers. Receita guardaPNG256final derivado, não original/máscara. Aoimportar pode retocar/reanimar, mas refazerrecorte requer escolher foto de novo. Receitasproceduraisv1 continuam aceitas; campoopcionalphoto versionado/validado, tamanhoarquivo450KB,PNG256egridválidos. Nome/autoria/ID usam validação existente; draftpreservado. Export captura cópia da arte antes da montagemassíncrona para impedir mistura dequadros quando usuário edita. WebPporCanvas pode sercomperdas; importAndroidcontinua dependente deappcompatível.
+- PNG: RGBA 2048×256, oito células por humor; ZIP contém quatro faixas, manifesto, receita e instruções.
+- PNGs fotográficos já incorporam os efeitos; `sleepSigns` contém oito `null` para evitar Zzz duplicado no pipeline.
+- Figurinhas fotográficas: quatro WebPs 512×512, 32 quadros por humor, arredondamento acumulado de tempos; limite de tamanho validado. Procedural conserva oito quadros.
+- JSON: PNG derivado 256×256, grade e cabeça normalizada, sem foto original, EXIF, nome da fonte ou máscara. A receita é validada; arquivo máximo de 450.000 bytes. Para recortar novamente, é necessário selecionar a foto original.
+- Exportações assíncronas usam cópia estável de arte/cabeça para não misturar uma edição posterior entre quadros.
 
-Stickersaceitam rendereropcional sem alterar assinatura anterior; efeitosZzz e tempos permanecem. Código do plugin/pipeline e assets/hook não mudam. Python/Pillow é validação deintegração do projeto, não requisito do site.
+Canvas WebP pode usar compressão com perdas. O pipeline Python/Pillow gera GIFs, galeria e figurinhas localmente; não é requisito do visitante. Importação WhatsApp depende de aplicativo Android compatível e ainda não foi verificada em aparelho.
 
-## Evidências
+## Evidências e marcos
 
-Preencher com resultados finais no relatório docs/validation/photo-editor.json. Testes incluem core e regressão de quantização com coresminoritárias, protocoloWorker/cache/bytes, regressõesprocedurais/WebP, navegadorChromeheadless comamostrasintética, exportdecodePillow eZIP→deliver→validate. Viewports390/1440 não provam compatibilidade emtelefone físico. Firefox/Safari/aparelhos reais e importAndroid ainda não medidos. TemposCPU/RAM podem variar; tamanho de pesos não é mínimoRAM. Sem alegação de desempenho universal ou paridade artística.
+| Marco histórico | Evidência |
+|---|---|
+| Primeiro editor público `2ff19ad`, Pages 39249300236 | [Relatório original](../validation/photo-editor-public.json) |
+| Movimento/cabeça/seleção `f18e579` | [Relatório de efeitos](../validation/cutout-public.json) |
+| Espécies/inline/tema `a0926da` | [Relatório de espécies](../validation/species-inline-public.json) |
+| Separação completa de modos `d61fdfb`, Pages 39257004280 | [Relatório final](../validation/mode-regression-public.json) |
 
-
-## Publicação verificada
-
-Publicado somente o site pessoal, subpasta`virapets`, commit2ff19ad93b17c43c81b2f898d680863ec2941fa4, Pagesrun39249300236 success. URL https://daneiel.github.io/virapets/ testada emChromium público: modo manual e modelo real, múltiplos pontos, cache sem nova rede, erro/retry/cancelamento, 4PNG/32quadros e4WebPanimados. Relatórios docs/validation/photo-editor.json e photo-editor-public.json. 23testesNodeaprovados; 64arquivosassets/hooks preservados. ZIP→deliver→validate aprovado emclone temporário. Sem telefonefísico/Firefox/Safari/importaçãoAndroid; sem nova sessão deplugin, cujosdados/runtimepermanecemintactos. Publicado não inclui commits deplugin.
+40 testes Node passaram na última rodada de código: core, foto, máscaras, SAM, espécies e WebP. QA público Chromium, viewports 390/1440, cabeça nas bordas, receitas, modelo real em rodada anterior, exportações Pillow e ZIP→deliver→validate→build em clones isolados. Não há teste de aparelhos físicos, Firefox/Safari, importação real Android ou nova instalação pessoal de pet. Os relatórios mantêm o escopo e os commits reais de cada rodada.

@@ -1,0 +1,252 @@
+{
+  "date": "2026-10-19",
+  "siteCommit": "f18e5798a93a6d94d7420eb4e8ed4c2a74338796",
+  "pagesRun": 39253468264,
+  "pagesConclusion": "success",
+  "readmeCommit": "f8f5bf1",
+  "motion": {
+    "url": "https://daneiel.github.io/virapets/",
+    "errors": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-modal.js"
+      }
+    ],
+    "head1": {
+      "x": 0.5,
+      "y": 0.3515625,
+      "radius": 0.2734375,
+      "side": "auto"
+    },
+    "head2": {
+      "x": 0.7239060401916504,
+      "y": 0.24389886856079102,
+      "radius": 0.125,
+      "side": "left"
+    },
+    "edgeAnchors": true,
+    "headRecipeRoundtrip": true,
+    "headResetAfterRecrop": true,
+    "simulation": true,
+    "pause": true,
+    "widths": [
+      1440,
+      390
+    ],
+    "physicalDevice": false,
+    "photoOrModelUpload": false
+  },
+  "selection": {
+    "url": "https://daneiel.github.io/virapets/",
+    "errors": [],
+    "requests": [
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/tokens.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/style.css"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/theme.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/pet-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/stickers.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-mask.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-core.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-client.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-editor.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/app.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/mode-modal.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/photo-sam-worker.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/vendor/transformers-3.8.1/transformers.min.js"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/config.json"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/preprocessor_config.json"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/api/resolve-cache/models/Xenova/slimsam-77-uniform/5850ab45f587c112167512ffef949107115e26a0/preprocessor_config.json"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/api/resolve-cache/models/Xenova/slimsam-77-uniform/5850ab45f587c112167512ffef949107115e26a0/config.json"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/vision_encoder_quantized.onnx"
+      },
+      {
+        "method": "GET",
+        "url": "https://huggingface.co/Xenova/slimsam-77-uniform/resolve/5850ab45f587c112167512ffef949107115e26a0/onnx/prompt_encoder_mask_decoder_quantized.onnx"
+      },
+      {
+        "method": "GET",
+        "url": "https://us.aws.cdn.hf.co/xet-bridge-us/659c0ba3c2b6b91355ddeef3/a35119ed9a8f10e0a2b3deb97e76b7514ba5544a90054adb4a469b5362e8c789"
+      },
+      {
+        "method": "GET",
+        "url": "https://us.aws.cdn.hf.co/xet-bridge-us/659c0ba3c2b6b91355ddeef3/61cf4c11ff880e6d60501a9cd1876affb81e99c9a22b1cf1fb2732017b8c8446"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/vendor/transformers-3.8.1/ort-wasm-simd-threaded.jsep.mjs"
+      },
+      {
+        "method": "GET",
+        "url": "https://daneiel.github.io/virapets/vendor/transformers-3.8.1/ort-wasm-simd-threaded.jsep.wasm"
+      }
+    ],
+    "modalActiveModeOnly": true,
+    "photoStateAcrossModes": true,
+    "maskUndoRedo": true,
+    "backgroundInversion": true,
+    "backgroundColorAndTransparent": true,
+    "originalPhotoPreserved": true,
+    "modelPositiveNegativeAndObjectMode": true,
+    "escapeFocusReturn": true,
+    "tabContained": true,
+    "mobileViewportOnly": true
+  },
+  "exports": {
+    "stickers": [
+      {
+        "file": "motion-qa-happy.webp",
+        "frames": 32,
+        "bytes": 305932,
+        "cycleMs": 960
+      },
+      {
+        "file": "motion-qa-barking.webp",
+        "frames": 32,
+        "bytes": 311974,
+        "cycleMs": 1140
+      },
+      {
+        "file": "motion-qa-waiting.webp",
+        "frames": 32,
+        "bytes": 305824,
+        "cycleMs": 2400
+      },
+      {
+        "file": "motion-qa-sleeping.webp",
+        "frames": 32,
+        "bytes": 328388,
+        "cycleMs": 3740
+      }
+    ],
+    "pngEffects": [
+      {
+        "mood": "barking",
+        "decorativePixels": [
+          0,
+          0,
+          0,
+          0,
+          72,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "mood": "sleeping",
+        "decorativePixels": [
+          0,
+          19,
+          19,
+          9,
+          0,
+          0,
+          0,
+          36
+        ]
+      }
+    ]
+  }
+}
