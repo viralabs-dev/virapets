@@ -318,6 +318,10 @@ Além da suíte, confira a galeria, as quatro poses de cada pet no Claude real, 
 
 Os requisitos de WebP animado (512×512, até 500 KB e ciclo até 10 s) seguem a [documentação oficial de stickers do WhatsApp](https://github.com/WhatsApp/stickers/tree/main/Android#sticker-art-and-app-requirements). `.wastickers` é o formato do importador usado pelo projeto; não é uma API oficial de instalação do WhatsApp.
 
+## Apoie
+
+Se o projeto te ajuda, você pode [pagar um café no Ko-fi](https://ko-fi.com/daneiel).
+
 ## Autor e licença
 
 Daniel Souza ([@daneiel](https://github.com/daneiel)). [MIT](LICENSE), para código e assets. As referências foram geradas por Gemini e as novas faixas foram criadas com a ferramenta de imagem do Codex. Prompts ficam em `assets/pets/<id>/references/`. Imagens sem garantia de direitos de terceiros.
